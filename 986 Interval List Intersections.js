@@ -1,3 +1,10 @@
+/*
+為什麼一開始要 sort？
+最簡單的方法試試用暴力法，將每一個 interval 與剩下的 interval 都比較一遍找出所有的重疊區域，但這樣會重複比較。
+透過排序我可以確定檔下一個 interval 的最小值大於目前 interval 的最大值的話，之後的 intervals 都與目前的 interval 
+不可能有重疊部分。
+*/
+
 var intervalIntersection = function(A, B) {
     A = quicksort(A.concat(B))
     let list = []
