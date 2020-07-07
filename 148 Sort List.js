@@ -1,9 +1,28 @@
 /*
-先決定誰是最終的 head，並將 preNode 指向 head，設定好 c1, c2 的位置後 (當 head 的那個 list，currentNode 會往後一個)，透過比較 c1, c2 大小決定 preNode 指向誰
-有點像逐步挑選下一個 node 已完成新的 merged list 
+在 linked list 上實現 merge sort
+可以透過 fast (一次走兩步) 與 slow (一次走一步) 來找到 linked list 的中點
+程式碼結構上與 array 的 merge sort 類似
 */
 
-var mergeTwoLists = function(l1, l2) {
+var sortList = function(head) {
+    if (head === null) {return head}
+    if (head.next === null) {return head}
+    
+    let fast = head.next
+    let slow = head
+    
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next
+        slow = slow.next
+    }
+    
+    let head2 = slow.next
+    slow.next = null
+    
+    return mergeTwoLists(sortList(head), sortList(head2))
+};
+
+function mergeTwoLists(l1, l2) {
     if (l1 === null) {return l2}
     if (l2 === null) {return l1}
 
