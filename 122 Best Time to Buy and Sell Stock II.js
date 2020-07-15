@@ -23,6 +23,25 @@ var maxProfit = function(prices) {
     return maxProfit
 };
 
+// DP 解法
+
+var maxProfit = function(prices) {
+    let dp_i_0 = 0
+    let dp_i_1 = - Infinity
+    let n = prices.length
+    
+    if (prices.length === 0) {return 0}
+    
+    for (let i = 0; i < n; i++) {
+        let temp = dp_i_0
+        // 注意 dp_i_0 會被改
+        dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i])
+        dp_i_1 = Math.max(dp_i_1, temp - prices[i])
+    }
+    
+    return dp_i_0
+};
+
 const prices = [7,1,5,3,6,4]
 
 console.log(maxProfit(prices))
