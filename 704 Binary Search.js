@@ -1,17 +1,20 @@
+/*
+Time Complexity: O(logn)
+Space Complexity: O(1)
+*/
+
 var search = function(nums, target) {
-    let start = 0
-    let end = nums.length - 1
+    let left = 0
+    let right = nums.length - 1
     let mid
-
-    while (start < end) {
-        mid = Math.floor((start + end) / 2)
-
-        if (nums[mid] === target) {return mid}
-        else if (nums[mid] > target) {end = mid - 1}
-        else {start = mid + 1}
-    } 
     
-    if (nums[start] === target) {return start}
+    while (left <= right) {
+        mid = Math.floor((left + right) / 2)
+        
+        if (nums[mid] === target) {return mid}
+        else if (nums[mid] > target) {right = mid - 1}
+        else if (nums[mid] < target) {left = mid + 1}
+    }
     return -1
 };
 

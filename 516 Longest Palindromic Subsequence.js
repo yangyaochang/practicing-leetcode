@@ -32,7 +32,7 @@ var longestPalindromeSubseq_DP = function(s) {
         dp[i][i] = 1
     }
 
-    for (i = s.length - 1; i >= 0; i--) {
+    for (i = s.length - 2; i >= 0; i--) {
         for (let j = i + 1; j < s.length; j++) {
             if (s[i] === s[j]) {
                 dp[i][j] = dp[i + 1][j - 1] + 2

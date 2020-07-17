@@ -1,35 +1,43 @@
-var searchRange = function(nums, target) {
-    let range = [-1, -1]
-    let [left, right] = [0, nums.length - 1]
-    let mid
+/*
+Time Complexity: O(logn)
+Space Complexity: O(1)
+*/
 
-    if (target < nums[0] || target > nums[nums.length - 1]) {return range}
-    // 找第一個 index
-    // 透過 mid 與 taregt 的比較扣除不需要看的部分
-    while (left < right) {
+var searchRange = function(nums, target) {
+    let left = 0
+    let right = nums.length - 1
+    let mid
+    let position = []
+
+    while (left <= right) {
         mid = Math.floor((left + right) / 2)
-        if (nums[mid] === target) {right = mid}
+
+        if (nums[mid] === target) {right = mid - 1}
         else if (nums[mid] > target) {right = mid - 1}
-        else {left = mid + 1}
+        else if (nums[mid] < target) {left = mid + 1}
     }
 
-    range[0] = (nums[left] === target) ? left : -1
+    if (left >= nums.length || nums[left] !== target) {position[0] = -1}
+    else {position[0] = left}
+
     left = 0
     right = nums.length - 1
-    
-    // 找第二個 index
-    while (left + 1 < right) {
+
+    while (left <= right) {
         mid = Math.floor((left + right) / 2)
-        if (nums[mid] === target) {left = mid}
+
+        if (nums[mid] === target) {left = mid + 1}
         else if (nums[mid] > target) {right = mid - 1}
-        else {left = mid + 1}
+        else if (nums[mid] < target) {left = mid + 1}
     }
 
-    range[1] = (nums[left] === target) ? left : -1
-    return range
-};
+    if (right < 0 || nums[right] !== target) {position[1] = -1}
+    else {position[1] = right}
 
-const nums = [1]
-const target = 1
+    return position
+}
+
+const nums = [5,7,7,8,8,10]
+const target = 6
 
 console.log(searchRange(nums, target))
