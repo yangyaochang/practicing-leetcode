@@ -23,6 +23,54 @@ var findMin = function(nums) {
     // 如果 input 是一個 sorted array 的話直接返回第一個元素
 };
 
+/* 
+第二次作答
+Time Complexity: O(logn)
+Space Complexity: O(1) 
+*/
+
+var findMin = function(nums) {
+    let left = 0
+    let right = nums.length - 1
+
+    while (nums[left] > nums[right] && left < right - 1) {
+        let mid = Math.floor((left + right) / 2)
+
+        if (nums[mid] > nums[left]) {
+            left = mid
+        } else if (nums[mid] < nums[right]) {
+            right = mid
+        }
+    }
+
+    return (nums[left] < nums[right]) ? nums[left] : nums[right]
+};
+
+/*
+第三次作答
+Time Complexity: O(logn)
+Space Complexity: O(logn) 
+*/
+
+var findMin = function(nums) {
+    return divide(0, nums.length - 1, nums)
+
+    function divide(left, right, nums) {
+        if (nums[right] > nums[left]) {return nums[left]}
+        if (left === right) {return nums[left]}
+        if (right === left + 1) {return Math.min(nums[left], nums[right])}
+        
+        let mid = Math.floor((left + right) / 2)
+
+        if (nums[mid] > nums[left]) {
+            return Math.min(nums[left], divide(mid + 1, right, nums))
+        } else if (nums[mid] < nums[left]) {
+            return Math.min(nums[mid + 1], divide(left, mid, nums))
+        }
+    }
+};
+
+
 const nums = [3,4,5,1,2] 
 
 console.log(findMin(nums))

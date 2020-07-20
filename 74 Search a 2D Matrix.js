@@ -1,13 +1,13 @@
 var searchMatrix = function(matrix, target) {
     if (matrix.length === 0) {return false}
     // Handle edge cases when matrix = []
-    let row = 0
-    let col = matrix[0].length - 1
+    let row = matrix.length - 1
+    let col = 0
 
     while (row >= 0 && col >= 0 && row < matrix.length && col < matrix[0].length) {
-        if (target === matrix[row][col]) {return true}
-        else if (target > matrix[row][col]) {row++}
-        else {col--}
+        if (matrix[row][col] > target) {row--}
+        else if (matrix[row][col] < target) {col++}
+        else if (matrix[row][col] === target) {return true}
     }
 
     return false

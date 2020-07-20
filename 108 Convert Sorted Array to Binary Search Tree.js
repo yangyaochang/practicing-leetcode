@@ -53,6 +53,29 @@ var sortedArrayToBST = function(nums) {
     }
 };
 
+/*
+第二次做
+Time Complexity: O(n)
+Space Complexity: O(n) => 額外建立一個含有 n 個 nodes 的 tree
+*/
+
+var sortedArrayToBST = function(nums) {
+    const convert = (left, right) => {
+        if (left > right) {return null}
+        if (left === right) {return new TreeNode(nums[left])}
+        
+        let mid = Math.floor((left + right) / 2)
+        let newNode = new TreeNode(nums[mid])
+        
+        newNode.left = convert(left, mid - 1)
+        newNode.right = convert(mid + 1, right)
+        
+        return newNode
+    }
+    
+    return convert(0, nums.length - 1)
+};
+
 const arr = [0, 1, 2, 3, 4, 5]
 console.log(sortedArrayToBST(arr))
 
