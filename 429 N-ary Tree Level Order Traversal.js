@@ -1,3 +1,8 @@
+/*
+Time Complexity: O(n)
+Space Complexity: O(n)
+*/
+
 var levelOrder = function(root) {
     let queue = []
     let list = []
