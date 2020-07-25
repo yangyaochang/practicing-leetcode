@@ -5,21 +5,22 @@
 */
 
 var binaryTreePaths = function(root) {
-    let paths = []
-
+    let list = []
+    
     const dfs = (current, path) => {
         if (current === null) {return null}
-
-        path += `${current.val}->`
+        
+        if (path === '') {path += current.val}
+        else {path += `->${current.val}`}
+        
         let left = dfs(current.left, path)
         let right = dfs(current.right, path)
-
+        
         if (left === null && right === null) {
-            let temp = path.slice(0, path.length - 2)
-            paths.push(temp)
+            list.push(path)
         }
     }
-
+    
     dfs(root, '')
-    return paths
+    return list
 };
