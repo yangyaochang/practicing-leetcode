@@ -3,29 +3,31 @@
 */
 
 var longestUnivaluePath = function(root) {
-    let maxLength = 0
+    let longestPath = 0
     
-    const postorder = (current) => {
-        if (current === null) {return [null, 0]}
+    if (root === null) {return longestPath}
+    
+    const dfs = (current) => {
+        if (current === null) {return [null, null]}
         
-        let left = postorder(current.left)
-        let right = postorder(current.right)
+        let left = dfs(current.left)
+        let right = dfs(current.right)
         
         if (left[0] === current.val && right[0] === current.val) {
-            maxLength = Math.max(maxLength, left[1] + right[1])
+            longestPath = Math.max(longestPath, left[1] + right[1])
             return [current.val, Math.max(left[1], right[1]) + 1]
-        } 
+        }
         if (left[0] === current.val) {
-            maxLength = Math.max(maxLength, left[1])
+            longestPath = Math.max(longestPath, left[1])
             return [current.val, left[1] + 1]
         }
         if (right[0] === current.val) {
-            maxLength = Math.max(maxLength, right[1])
+            longestPath = Math.max(longestPath, right[1])
             return [current.val, right[1] + 1]
         }
-        return [current.val, 1]
+        return [current.val , 1]
     }
     
-    postorder(root)
-    return maxLength
+    dfs(root)
+    return longestPath
 };
