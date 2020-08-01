@@ -1,10 +1,12 @@
 /*
 Time Complexity: O(n)
 Space Complexity: O(n) => 我覺得 n 是單一 level 最多的 node 數目
+
 但官方答案是：
 At most, the queue will have 2 layers of the tree on it at any given time. 
 In the worst case, this is all of the nodes. In the best case, it is just 1 node 
 (if we have a tree that is equivalent to a linked list).
+Space Complexity: O(n)
 */
 
 var levelOrder = function(root) {

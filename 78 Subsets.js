@@ -21,6 +21,29 @@ var subsets = function(nums) {
     return list
 };
 
+// 第二次做
+
+var subsets = function(nums) {
+    const list = []
+
+    const dfs = (nums, path) => {
+        if (nums.length === 0) {
+            list.push([...path])
+            return
+        }
+
+        const num = nums.pop()
+        dfs(nums, path)
+        path.push(num)
+        dfs(nums, path)
+        path.pop()
+        nums.push(num)
+    }
+
+    dfs(nums, [])
+    return list
+};
+
 const nums = [-1,1,2]
 
 console.log(subsets(nums))

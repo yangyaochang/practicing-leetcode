@@ -28,6 +28,34 @@ var combinationSum = function(candidates, target) {
     return list
 };
 
+/* 
+第二次做
+Time Complexity: O(2^n)
+Space Complexity: O(n)
+*/
+var combinationSum = function(candidates, target) {
+    const list = []
+    
+    const dfs = (sum, path, candidates) => {
+        if (sum === target) {
+            list.push([...path])
+            return
+        }
+        if (candidates.length === 0) {return}
+        if (sum > target) {return}
+
+        const temp = [...candidates]
+        const num = candidates.pop()
+        path.push(num)
+        dfs(sum + num, path, temp)
+        path.pop()
+        dfs(sum, path, candidates)
+    }
+
+    dfs(0, [], candidates)
+    return list
+};
+
 const candidates = [2,3,6,7]
 const target = 7
 

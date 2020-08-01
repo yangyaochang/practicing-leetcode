@@ -1,21 +1,18 @@
 /*
-Time Complexity: O(n)
-Space Complexity: O(n)
+Tree 的問題關鍵在於思考你在那個 node 上要做什麼
 */
 
-var trimBST = function(root, L, R) {
+var removeLeafNodes = function(root, target) {
     const dfs = (current) => {
         if (current === null) {return null}
         
         current.left = dfs(current.left)
         current.right = dfs(current.right)
         
-        if (L > current.val) {
-            return current.right
-        } 
-        if (current.val > R) {
-            return current.left
+        if (current.left === null && current.right === null && current.val === target) {
+            return null
         }
+        
         return current
     }
     

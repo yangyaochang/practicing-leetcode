@@ -50,6 +50,50 @@ var canFinish = function(numCourses, prerequisites) {
     }
 };
 
+// 第二次做，多了一個 base case 直接返回沒有後續課程的 course
+
+var canFinish = function(numCourses, prerequisites) {
+    let graph = {}
+    let visited = new Set()
+    let ancestors = new Set()
+    let acyclic = true
+
+    prerequisites.forEach(course => {
+        if (course[1] in graph) {
+            graph[course[1]].push(course[0])
+        } else {
+            graph[course[1]] = [course[0]]
+        }
+    })
+
+    const dfs = (current) => {
+        if (ancestors.has(current)) {
+            acyclic = false
+            return
+        }
+        if (current in graph === false) {return}
+        // 沒有後續課程的 course 直接返回
+        if (visited.has(current)) {return}
+
+        visited.add(current)
+        ancestors.add(current)
+
+        let neighbors = graph[current]
+
+        for (let i = 0; i < neighbors.length; i++) {
+            dfs(neighbors[i])
+        }
+
+        ancestors.delete(current)
+    }
+
+    for (let i = 0; i < numCourses; i++) {
+        dfs(i)
+    }
+
+    return acyclic
+};
+
 const numCourses = 2
 const prerequisites = [[1,0]]
 
