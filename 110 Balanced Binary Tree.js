@@ -1,16 +1,25 @@
+/*
+Time Complexity: O(n)
+Space Complexity: O(n)
+*/
+
 var isBalanced = function(root) {
     let balanced = true
     
-    const postorder = (current) => {
+    const dfs = (current) => {
         if (current === null) {return 0}
         
-        let left = postorder(current.left)
-        let right = postorder(current.right)
+        let left = dfs(current.left)
+        let right = dfs(current.right)
         
-        if (balanced && Math.abs(left - right) > 1) {balanced = false}
-        return Math.max(left, right) + 1
+        if (Math.abs(left - right) <= 1) {
+            return Math.max(left, right) + 1
+        } else {
+            balanced = false
+        }
     }
     
-    postorder(root)
+    if (root === null) {return true}
+    dfs(root)
     return balanced
 };

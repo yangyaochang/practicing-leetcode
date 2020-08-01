@@ -1,23 +1,23 @@
 /*
-Leaf node 是兩邊都收到 null
+Time Complexity: O(n)
+Space Complexity: O(n)
 */
 
 var minDepth = function(root) {
-    if (root === null) {return 0}
+    let minDepth = Infinity
     
-    let minLevel = Infinity
-    
-    const dfs = (current, level) => {
+    const dfs = (current, depth) => {
         if (current === null) {return null}
         
-        let left = dfs(current.left, level + 1)
-        let right = dfs(current.right, level + 1)
+        let left = dfs(current.left, depth + 1)
+        let right = dfs(current.right, depth + 1)
         
         if (left === null && right === null) {
-            minLevel = Math.min(minLevel, level)
-        } 
+            minDepth = Math.min(minDepth, depth)
+        }
     }
     
+    if (root === null) {return 0}
     dfs(root, 1)
-    return minLevel
+    return minDepth
 };
