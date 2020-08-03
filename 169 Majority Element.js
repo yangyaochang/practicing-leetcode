@@ -1,3 +1,5 @@
+// Hash map 作法
+
 var majorityElement = function(nums) {
     let cache = new Map()
 
@@ -13,34 +15,47 @@ var majorityElement = function(nums) {
     }
 };
 
+/*
+可以用 brute force 做 frequenct count
+
+第二種方法
+邏輯推演是：
+無論 array 是奇數個還是偶數個，majority element 永遠可以在 index = Math.floor(arr.length / 2) 找到
+
+Time Complexity: O(nlogn)
+Space Complexity: O(logn) => 為什麼 quick sort space complexity 是 log(n)？
+不斷把 array 拆分成一半直到 array 只剩一個元素推得 2 ^ h = n
+h = log 以 2 為底 n 的對數 
+思考一下 quicl sort 在 worst case 時的 space complexity O(n), Time Complexity O(n ^ 2)
+*/
+
 var majorityElement = function(nums) {
     nums = quicksort(nums)
-
-    return nums[Math.floor(nums.length / 2)]
+    const mid = Math.floor(nums.length / 2)
+    return nums[mid]
 
     function quicksort(arr) {
-        const divide = (start, end) => {
-            
-            if (start >= end) {return}
 
-            let mid = start
-            for (let i = start; i < end; i++) {
-                if (arr[i] < arr[end]) {
-                    [arr[i], arr[mid]] = [arr[mid], arr[i]]
-                    mid++
+        const divide = (s, e) => {
+            if (s >= e) {return}
+            
+            let m = s
+            for (let i = s; i < e; i++) {
+                if (arr[i] < arr[e]) {
+                    [arr[i], arr[m]] = [arr[m], arr[i]]
+                    m++
                 }
             }
-            [arr[end], arr[mid]] = [arr[mid], arr[end]]
+            [arr[m], arr[e]] = [arr[e], arr[m]]
 
-            divide(start, mid - 1)
-            divide(mid + 1, end)
+            divide(s, m - 1)
+            divide(m + 1, e)
         }
 
         divide(0, arr.length - 1)
         return arr
     }
 };
-
 
 const nums = [2,2,1,1,1,2,2]
 

@@ -8,6 +8,7 @@ var sortList = function(head) {
     if (head === null) {return head}
     if (head.next === null) {return head}
     
+    // 這個配置與 detect a cycle in linked list 不一樣
     let fast = head.next
     let slow = head
     
