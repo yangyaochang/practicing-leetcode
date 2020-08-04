@@ -13,7 +13,7 @@ var intervalIntersection = function(A, B) {
     for (let i = 1; i < A.length; i++) {
         // 第二個數字小於就代表整個 interval 包含
         if (A[i][1] <= A[currentLargest][1]) {
-            list.push([A[i][0], A[i][1]])
+            list.push(A[i])
             continue
         } else if (A[i][0] <= A[currentLargest][1]) {
             // 只有第一個數字小於代表只有部份重疊
@@ -40,6 +40,50 @@ var intervalIntersection = function(A, B) {
 
             divide(start, mid - 1)
             divide(mid + 1, end)
+        }
+
+        divide(0, arr.length - 1)
+        return arr
+    }
+};
+
+// 第二次做
+
+var intervalIntersection = function(A, B) {
+    A = quicksort(A.concat(B))
+    const list = []
+    if (A.length === 0) {return list}
+    let maxEnd = A[0][1]
+
+    for (let i = 1; i < A.length; i++) {
+        // 整個 interval 重疊，maxEnd 不變，比下一個
+        if (A[i][1] <= maxEnd) {
+            list.push(A[i])
+            continue
+        } else if (A[i][0] <= maxEnd) {
+        // 只有部份重疊
+            list.push([A[i][0], maxEnd])
+        }
+        // 部份重疊與不重疊都要更新 maxEnd
+        maxEnd = A[i][1]
+    }
+
+    return list
+
+    function quicksort(arr) {
+        const divide = (s, e) => {
+            if (s >= e) {return}
+
+            let m = s
+            for (let i = s; i < e; i++) {
+                if (arr[i][0] < arr[e][0]) {
+                    [arr[i], arr[m]] = [arr[m], arr[i]]
+                    m++
+                }
+            }
+            [arr[e], arr[m]] = [arr[m], arr[e]]
+            divide(s, m - 1)
+            divide(m + 1, e)
         }
 
         divide(0, arr.length - 1)
