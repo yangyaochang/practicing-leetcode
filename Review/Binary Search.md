@@ -138,3 +138,17 @@ var findMin = function(nums) {
 
     return divide(0, nums.length - 1)
 };
+
+## 31. Next Permutation
+
+[講解影片](https://www.youtube.com/watch?v=quAS1iydq7U)
+
+影片以排列的基本方法出發解釋此題覺得非常具有參考價值
+
+從一個找到窮舉所有排列的過程中可以發現 (畫樹狀圖會更好理解)，要找到下一個排列必須 backtrack 到與下一個排列共享的最低父節點，而這個點正好會是從後面數來嚴格遞減排列前的第一個 item。(The item before strictly decreasing section)。
+
+> 試想看看如果給定個數的元素是 Sorted，在每一個 Level 做選擇時，選到最大的時候都已經是該 Level 窮盡所有可能的時候。所以從後面數來只要是嚴格遞減都代表在該 Level 已窮盡所有可能，沒有下一個排列。
+
+抵達最低共同父節點後，選擇比 item 大中最小的數取代 item (想像一下樹狀邏輯選下一個元素的意思)，接著因為是要找下一個排列，要靠樹狀的左邊走，所以必須從剩餘元素中以遞增方式選取。
+
+> 因為 item 之後是 strictly decreasing，當 item 與比他大中最小的元素 swap 後，依然不改變 strictly decreasing 的狀態，未來要改為遞增可以直接 `reverse()`

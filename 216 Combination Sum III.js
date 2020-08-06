@@ -25,6 +25,30 @@ var combinationSum3 = function(k, n) {
     return list
 };
 
+// 第二次做
+
+var combinationSum3 = function(k, n) {
+    const list = []
+
+    const findCombinations = (curSum, path, start) => {
+        if (curSum > n || path.length > k) {return}
+        if (curSum === n && path.length !== k) {return}
+        if (curSum === n && path.length === k) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = start; i <= 9; i++) {
+            path.push(i)
+            findCombinations(curSum + i, path, i + 1)
+            path.pop()
+        }
+    }
+
+    findCombinations(0, [], 1)
+    return list
+};
+
 const k = 3
 const n = 7
 
