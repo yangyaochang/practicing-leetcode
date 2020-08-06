@@ -24,6 +24,29 @@ var combine = function(n, k) {
     return list
 };
 
+// 第二次做
+
+
+var combine = function(n, k) {
+    const list = []
+    
+    const add = (path, start) => {
+        if (path.length === k) {
+            list.push([...path])
+            return
+        }
+        
+        for (let i = start; i <= n; i++) {
+            path.push(i)
+            add(path, i + 1)
+            path.pop()
+        }
+    }
+    
+    add([], 1)
+    return list
+};
+
 const n = 4
 const k = 2
 

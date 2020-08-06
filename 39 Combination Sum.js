@@ -56,6 +56,34 @@ var combinationSum = function(candidates, target) {
     return list
 };
 
+/*
+第三次做
+
+Time Complexity:
+Space Complexity:
+*/
+
+var combinationSum = function(candidates, target) {
+    const list = []
+    
+    const choose = (path, curSum, start) => {
+        if (curSum > target) {return}
+        if (curSum === target) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = start; i < candidates.length; i++) {
+            path.push(candidates[i])
+            choose(path, curSum + candidates[i], i)
+            path.pop()
+        }
+    }
+
+    choose([], 0, 0)
+    return list
+}
+
 const candidates = [2,3,6,7]
 const target = 7
 
