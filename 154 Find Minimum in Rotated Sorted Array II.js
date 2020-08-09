@@ -27,6 +27,30 @@ var findMin = function(nums) {
     return divide(0, nums.length - 1)
 };
 
+// 用 iteration 作法
+
+var findMin = function(nums) {
+    let left = 0
+    let right = nums.length - 1
+
+    while (nums[left] >= nums[right]) {
+        while (nums[left] === nums[right]) {
+            if (left === right) {return nums[left]}
+            left++
+        }
+        
+        if (nums[left] < nums[right]) {break}
+
+        const mid = Math.floor((left + right) / 2)
+
+        if (nums[mid] > nums[left]) {left = mid + 1}
+        else if (nums[mid] < nums[left]) {right = mid}
+        else if (nums[mid] === nums[left]) {left = mid + 1} 
+    }
+
+    return nums[left]
+};
+
 const nums = [2,2,2,0,1]
 
 console.log(findMin(nums))

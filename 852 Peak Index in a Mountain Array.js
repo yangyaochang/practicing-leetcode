@@ -19,7 +19,7 @@ var peakIndexInMountainArray = function(A) {
 /*
 Binary Search 解法
 
-利用 mid 與 mid + 1 的大小判斷 peak 會在左半邊還是右半邊
+利用 mid 與 mid + 1 的大小判斷 peak 會在左半邊還是右半邊進而縮小搜索範圍
 */
 
 var peakIndexInMountainArray = function(A) {

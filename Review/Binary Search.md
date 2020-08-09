@@ -86,6 +86,8 @@
 
 當搜索範圍不再 rotated，直接調用 binary search
 
+二元搜尋筆記有解
+
 
 
 ## 153. Find Minimum in Ratated Sorted Array
@@ -96,23 +98,22 @@ if (nums[mid] === nums[left]) 只發生在剩兩個元素 right 為最小
 
 覺得目前最合理的答案 想一下 iteration 怎麼做
 
-var findMin = function(nums) {
-    const find = (left, right) => {
-        if (left === right) {return nums[left]}
-        if (left + 1 === right) {return Math.min(nums[left], nums[right])}
-        if (nums[left] < nums[right]) {return nums[left]}
-        
-        const mid = Math.floor((left + right) / 2)
-        
-        if (nums[mid] > nums[left]) {
-            return find(mid + 1, right)
-        } else if (nums[mid] < nums[right]) {
-            return find(left, mid)
-        }
-    }
-    
-    return find(0, nums.length - 1)
-};
+後來想到 iteration 怎麼做了
+
+	var findMin = function(nums) {
+	    let left = 0
+	    let right = nums.length - 1
+	
+	    while (nums[left] > nums[right]) {
+	        const mid = Math.floor((left + right) / 2)
+	
+	        if (nums[mid] > nums[left]) {left = mid + 1}
+	        else if (nums[mid] < nums[left]) {right = mid}
+	        else if (nums[mid] === nums[left]) {left = mid + 1}
+	        // 當 nums[left] > nums[right] 計算完 mid 之後得到 nums[left] === nums[mid]，表示此時 right === left + 1 而 nums[right] 是比較小的那一個
+	    }
+	    return nums[left]
+	};
 
 ## 154. Find Minimum in Rotated Sorted Array II
 

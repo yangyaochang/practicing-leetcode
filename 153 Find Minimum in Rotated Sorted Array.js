@@ -111,6 +111,27 @@ var findMin = function(nums) {
     return nums[left]
 };
 
+/*
+第五次作答
+之前一直漏了在 rotated 的情況下若是 nums[left] === nums[mid] 代表的是 right === left + 1 的情況
+此時 left, right 之間只有兩個元素，且 nums[right] < nums[left]
+*/
+
+var findMin = function(nums) {
+    let left = 0
+    let right = nums.length - 1
+
+    while (nums[left] > nums[right]) {
+        const mid = Math.floor((left + right) / 2)
+
+        if (nums[mid] > nums[left]) {left = mid + 1}
+        else if (nums[mid] < nums[left]) {right = mid}
+        else if (nums[mid] === nums[left]) {left = mid + 1}
+    }
+    return nums[left]
+};
+
+
 
 const nums = [3,4,5,1,2] 
 
