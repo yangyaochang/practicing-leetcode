@@ -24,6 +24,36 @@ var letterCasePermutation = function(S) {
     return list
 };
 
+// 第二次做
+// 是 String 就不需要 backtracking
+
+var letterCasePermutation = function(S) {
+    const list = []
+
+    const construct = (path, index) => {
+        if (index === S.length) {
+            list.push(path.join(''))
+            return
+        }
+
+        if (/[a-zA-Z]/.test(S[index])) {
+            path.push(S[index].toUpperCase())
+            construct(path, index + 1)
+            path.pop()
+            path.push(S[index].toLowerCase())
+            construct(path, index + 1)
+            path.pop()
+        } else {
+            path.push(S[index])
+            construct(path, index + 1)
+            path.pop()
+        }
+    }
+
+    construct([], 0)
+    return list
+};
+
 const  S = "a1b2"
 
 console.log(letterCasePermutation(S))

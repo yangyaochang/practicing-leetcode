@@ -13,21 +13,25 @@ var search = function(nums, target) {
     if (nums.length === 0) {return -1}
 
     while (nums[left] > nums[right]) {
-        let mid = Math.floor((left + right) / 2)
+        const mid = Math.floor((left + right) / 2)
 
-        if (nums[mid] >= nums[left]) {
+        if (nums[mid] > nums[left]) {
             if (nums[mid] >= target && target >= nums[left]) {
-                return binarySearch(left, mid, target, nums)
+                return binarySearch(left, mid)
             } else {
                 left = mid + 1
             }
-        } else if (nums[mid] < nums[left]) {
-            if (nums[mid] <= target && target <= nums[right]) {
-                return binarySearch(mid, right, target, nums)
+        } else if (nums[left] > nums[mid]) {
+            if (nums[right] >= target && target >= nums[mid]) {
+                return binarySearch(mid, right)
             } else {
                 right = mid - 1
             }
+        } else if (nums[left] === nums[mid]) {
+            if (nums[left] === target) {return left}
+            else {left = mid + 1}
         }
+        // 處理相等狀況注意一下
     }
 
     return binarySearch(left, right, target, nums)
