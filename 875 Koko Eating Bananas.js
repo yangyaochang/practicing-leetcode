@@ -32,6 +32,40 @@ var minEatingSpeed = function(piles, H) {
     }
 };
 
+/*
+第二次做
+
+Binary Search 在一個有序數列中搜尋
+Math.ceil() 無條件進位的使用
+*/
+
+var minEatingSpeed = function(piles, H) {
+    let kMax = 0
+    let kMin = 1
+
+    piles.forEach(num => {kMax = Math.max(kMax, num)})
+
+    while (kMin <= kMax) {
+        const mid = Math.floor((kMin + kMax) / 2) 
+
+        if (eatBananas(mid) > H) {kMin = mid + 1}
+        else if (eatBananas(mid) < H) {kMax = mid - 1}
+        else if (eatBananas(mid) === H) {kMax = mid - 1}
+    }
+
+    return kMin
+
+    function eatBananas(speed) {
+        let hours = 0
+
+        for (let i = 0; i < piles.length; i++) {
+            hours += Math.ceil(piles[i] / speed)
+        }
+
+        return hours
+    }
+};
+
 const piles = [30,11,23,4,20]
 const H = 6
 
