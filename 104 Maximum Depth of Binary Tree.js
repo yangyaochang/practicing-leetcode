@@ -20,3 +20,21 @@ var maxDepth = function(root) {
     dfs(root, 1)
     return maxDepth
 };
+
+var maxDepth = function(root) {
+    let depth = 0
+
+    const dfs = (current, level) => {
+        if (current === null) {return null}
+
+        let left = dfs(current.left, level + 1)
+        let right = dfs(current.right, level + 1)
+
+        if (left === null && right === null) {
+            depth = Math.max(depth, level)
+        }
+    }
+
+    dfs(root, 0)
+    return depth
+}

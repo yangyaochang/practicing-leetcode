@@ -16,3 +16,18 @@ var isSymmetric = function(root) {
     
     return dfs(root, root)
 };
+
+// 第二次做
+
+var isSymmetric = function(root) {
+    if (root === null) {return true}
+    
+    const dfs = (c1, c2) => {
+        if (c1 === null && c2 === null) {return true}
+        if (c1 === null || c2 === null || c1.val !== c2.val) {return false}
+        
+        return dfs(c1.left, c2.right) && dfs(c1.right, c2.left)
+    }
+    
+    return dfs(root, root)
+};

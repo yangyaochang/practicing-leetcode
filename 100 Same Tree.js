@@ -14,3 +14,15 @@ var isSameTree = function(p, q) {
     
     return dfs(p, q)
 };
+
+// 第二次做
+
+var isSameTree = function(p, q) {
+    const dfs = (c1, c2) => {
+        if (c1 === null && c2 === null) {return true}
+        if (c1 === null || c2 === null || c1.val !== c2.val) {return false}
+        
+        return dfs(c1.left, c2.left) && dfs(c1.right, c2.right)
+    }
+    return dfs(p, q)
+};

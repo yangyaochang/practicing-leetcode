@@ -26,3 +26,22 @@ var deepestLeavesSum = function(root) {
     
     return sum[1]
 };
+
+var deepestLeavesSum = function(root) {
+    const queue = []
+    let levelSum = [0, 0]
+
+    queue.push([root, 0])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (level > levelSum[0]) {levelSum = [level, 0]}
+        levelSum[1] += current.val
+
+        if (current.left) {queue.push([current.left, level + 1])}
+        if (current.right) {queue.push([current.right, level + 1])}
+    }
+
+    return levelSum[1]
+}
