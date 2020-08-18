@@ -1,6 +1,8 @@
 /*
 紀錄最後一個 level 的所有 nodes，搜尋第一個與最後一個的 lowest common ancestor
-注意如果最後一個 level 只有一個 node，LCA 就是本身 
+注意如果最後一個 level 只有一個 node，LCA 就是本身
+
+開始遇到一些多次 traverse 才能解決的問題，但 BFS, DFS 基本上還是 O(n)，不用太擔心 Time, Space Complexity
 */
 
 var subtreeWithAllDeepest = function(root) {

@@ -25,3 +25,32 @@ var leafSimilar = function(root1, root2) {
         return list     
     }
 };
+
+var leafSimilar = function(root1, root2) {
+    const leaves1 = getLeaves(root1)
+    const leaves2 = getLeaves(root2)
+
+    if (leaves1.length !== leaves2.length) {return false}
+
+    for (let i = 0; i < leaves1.length; i++) {
+        if (leaves1[i] !== leaves2[i]) {return false}
+    }
+
+    return true
+
+    function getLeaves(root) {
+        const list = []
+
+        const postorderDFS = (cur) => {
+            if (cur === null) {return null}
+
+            let left = postorderDFS(cur.left)
+            let right = postorderDFS(cur.right)
+
+            if (left === null && right === null) {list.push(cur.val)}
+        }
+
+        postorderDFS(root)
+        return list
+    }
+}
