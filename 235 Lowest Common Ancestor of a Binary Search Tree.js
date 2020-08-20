@@ -51,3 +51,27 @@ var lowestCommonAncestor = function(root, p, q) {
     dfs(root)
     return lca
 };
+
+var lowestCommonAncestor = function(root, p, q) {
+    let LCA = null
+
+    if (p.val > q.val) {
+        let temp = p
+        p = q
+        q = temp
+    }
+
+    const dfs = (cur) => {
+        if (cur === null) {return}
+        if (LCA !== null) {return}
+        if (cur.val >= p.val && cur.val <= q.val) {
+            LCA = cur
+            return 
+        }
+
+        dfs(cur.left)
+        dfs(cur.right)
+    }
+    dfs(root)
+    return LCA
+};
