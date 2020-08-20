@@ -1,12 +1,4 @@
-## 669. Trim a Binary Search Tree
-
-## 1325. Delete Leaves With a Given Value
-
-669 跟 1325 這種有從下往上重組樹狀結構的
-都有將 return value assign 給 current.left, current.right 的操作
-
-## 951. Flip Equivalent Binary Trees
-
+/*
 我一開始卡在想要先判斷左右子樹是否一致再調用不同的 recursion，因此用了
 
 if (c1.left.val === c2.left.val && c1.right.val === c2.right.val)
@@ -17,10 +9,16 @@ if (c1.left.val === c2.left.val && c1.right.val === c2.right.val)
 
 dfs(c1.left, c2.left) && dfs(c1.right, c2.right) 代表的是同一種走訪方法兩棵樹要一樣才返回 true
 (dfs(c1.left, c2.left) && dfs(c1.right, c2.right)) || (dfs(c1.left, c2.right) && dfs(c1.right, c2.left)) 代表的是反轉與不反轉有一成立即可
+*/
 
-## 1008. Construct Binary Search Tree from Preorder Traversal 
-
-從 array 建立 樹狀結構
-把過程的樹狀圖畫出來有幫助建立遞迴
-
-## 98. Validate Binary Search Tree
+var flipEquiv = function(root1, root2) {
+    const dfs = (c1, c2) => {
+        if (c1 === null && c2 === null) {return true}
+        if (c1 === null || c2 === null) {return false}
+        if (c1.val !== c2.val) {return false}
+        
+        return (dfs(c1.left, c2.left) && dfs(c1.right, c2.right)) || (dfs(c1.left, c2.right) && dfs(c1.right, c2.left))
+    }
+    
+    return dfs(root1, root2)
+};

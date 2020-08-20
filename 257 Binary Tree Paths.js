@@ -24,3 +24,24 @@ var binaryTreePaths = function(root) {
     dfs(root, '')
     return list
 };
+
+var binaryTreePaths = function(root) {
+    const list = []
+
+    const dfs = (cur, path) => {
+        if (cur === null) {return null}
+
+        if (path === '') {path += cur.val}
+        else {path += `->${cur.val}`}
+
+        let left = dfs(cur.left, path)
+        let right = dfs(cur.right, path)
+
+        if (left === null && right === null) {
+            list.push(path)
+        }
+    }
+
+    dfs(root, '')
+    return list
+}
