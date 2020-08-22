@@ -26,3 +26,22 @@ var getMinimumDifference = function(root) {
     dfs(root)
     return minDiff
 };
+
+// 跟 98 題一樣在 BST 上 traverse 的同時把 lowerLimit, upperLimit 傳下去
+
+var getMinimumDifference = function(root) {
+    if (root === null) {return 0}
+    let minDiff = Infinity
+
+    const dfs = (cur, lowerLimit, upperLimit) => {
+        if (cur === null) {return}
+
+        if (lowerLimit !== null) {minDiff = Math.min(minDiff, cur.val - lowerLimit)}
+        if (upperLimit !== null) {minDiff = Math.min(minDiff, upperLimit - cur.val)}
+
+        dfs(cur.left, lowerLimit, cur.val)
+        dfs(cur.right, cur.val, upperLimit)
+    }
+    dfs(root, null, null)
+    return minDiff
+}

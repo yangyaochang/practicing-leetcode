@@ -17,3 +17,16 @@ var isValidBST = function(root) {
     
     return dfs(root)
 };
+
+var isValidBST = function(root) {
+
+    const dfs = (cur, lowerLimit, upperLimit) => {
+        if (cur === null) {return true}
+        if (lowerLimit && cur.val <= lowerLimit) {return false}
+        if (upperLimit && cur.val >= upperLimit) {return false}
+        
+        return dfs(cur.left, lowerLimit, cur.val) && dfs(cur.right, cur.val, upperLimit)
+    }
+
+    return dfs(root, null, null)
+}

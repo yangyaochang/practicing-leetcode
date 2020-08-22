@@ -52,3 +52,52 @@ var deserialize = function(data) {
     
     return root
 };
+
+// 第二次做，好像沒有用到 BST 的特性
+
+var serialize = function(root) {
+    const list = []
+    const queue = []
+    
+    queue.push(root)
+    
+    while (queue.length > 0) {
+        const current = queue.shift()
+        
+        if (current === null) {list.push('null')}
+        else {
+            list.push(current.val.toString())
+            queue.push(current.left)
+            queue.push(current.right)
+        }
+    }
+    
+    while (list[list.length - 1] === 'null') {
+        list.pop()
+    }
+    return list.join(',')
+};
+
+var deserialize = function(data) {
+    if (data === '') {return null}
+    let list = data.split(',')
+    list = list.map(str => (str === 'null') ? null : Number(str))
+    
+    const queue = []
+    const root = new TreeNode(list[0])
+    queue.push(root)
+    
+    for (let i = 1; i < list.length; i += 2) {
+        const current = queue.shift()
+        if (list[i] !== null) {
+            current.left = new TreeNode(list[i])
+            queue.push(current.left)
+        }
+        
+        if (i + 1 < list.length && list[i + 1] !== null) {
+            current.right = new TreeNode(list[i + 1])
+            queue.push(current.right)
+        }
+    } 
+    return root
+};

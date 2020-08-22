@@ -31,3 +31,32 @@ var longestUnivaluePath = function(root) {
     dfs(root)
     return longestPath
 };
+
+var longestUnivaluePath = function(root) {
+    let maxLength = 0
+
+    const dfs = (cur) => {
+        if (cur === null) {return [null, 0]}
+
+        let left = dfs(cur.left)
+        let right = dfs(cur.right)
+
+        if (left[0] === null && right[0] === null) {return [cur.val, 1]}
+        if (left[0] === cur.val && right[0] === cur.val) {
+            maxLength = Math.max(maxLength, left[1] + right[1])
+            return [cur.val, 1 + Math.max(left[1], right[1])]
+        }
+        if (left[0] === cur.val) {
+            maxLength = Math.max(maxLength, left[1])
+            return [cur.val, 1 + left[1]]
+        }
+        if (right[0] === cur.val) {
+            maxLength = Math.max(maxLength, right[1])
+            return [cur.val, 1 + right[1]]
+        }
+        return [cur.val, 1]
+    }
+
+    dfs(root)
+    return maxLength
+};
