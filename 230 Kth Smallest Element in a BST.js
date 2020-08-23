@@ -22,3 +22,24 @@ var kthSmallest = function(root, k) {
     dfs(root)
     return kth
 };
+
+var kthSmallest = function(root, k) {
+    let count = 0
+    let target = null
+
+    const dfs = (cur) => {
+        if (cur === null) {return}
+        if (target) {return}
+
+        dfs(cur.left)
+        count++
+        if (count === k) {
+            target = cur.val
+            return
+        }
+        dfs(cur.right)
+    }
+
+    dfs(root)
+    return target
+};

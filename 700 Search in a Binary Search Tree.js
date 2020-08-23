@@ -42,3 +42,20 @@ var searchBST = function(root, val) {
     return dfs(root)
 };
 
+// I don't understand why I used DFS last time
+
+var searchBST = function(root, val) {
+    let current = root
+
+    while (current !== null) {
+        if (current.val > val) {
+            current = current.left
+        } else if (current.val < val) {
+            current = current.right
+        } else if (current.val === val) {
+            return current
+        }
+    }
+    return null
+};
+
