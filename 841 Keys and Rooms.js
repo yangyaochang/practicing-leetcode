@@ -30,3 +30,22 @@ var canVisitAllRooms = function(rooms) {
 const rooms = [[1,3],[3,0,1],[2],[0]]
 
 console.log(canVisitAllRooms(rooms))
+
+/*
+Array 其實就是 key 為非負整數的 object
+*/
+
+var canVisitAllRooms = function(rooms) {
+    const visited = new Set()
+
+    const dfs = (cur) => {
+        if (visited.has(cur)) {return}
+
+        visited.add(cur)
+        const keys = rooms[cur]
+        keys.forEach(key => {dfs(key)})
+    }
+
+    dfs(0)
+    return visited.size === rooms.length
+};
