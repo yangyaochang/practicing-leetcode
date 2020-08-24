@@ -74,3 +74,28 @@ const sc = 1
 const newColor = 2
 
 console.log(floodFill(image, sr, sc, newColor))
+
+/* 
+第三次做方法更簡潔了
+碰到這種 traversed 過後可以更改數值的，可以省略掉使用 visited set
+*/
+
+var floodFill = function(image, sr, sc, newColor) {
+    const originalColor = image[sr][sc]
+    
+    const changeColor = (r, c) => {
+        if (r < 0 || c < 0 || r >= image.length || c >= image[0].length) {return}
+        if (image[r][c] !== originalColor) {return}
+
+        image[r][c] = newColor
+
+        changeColor(r + 1, c)
+        changeColor(r - 1, c)
+        changeColor(r, c + 1)
+        changeColor(r, c - 1)
+    }
+    
+    if (originalColor === newColor) {return image}
+    changeColor(sr, sc)
+    return image
+};

@@ -1,3 +1,31 @@
+/*
+看到 LeetCode 上留了自己的答案，很短，但已看不懂，不知道當初怎麼想的
+*/
+
+var findCircleNum = function(M) {
+    let visited = new Set()
+    let count = 0
+
+    const dfs = (current) => {
+        if (visited.has(current)) {return}
+
+        visited.add(current)    
+        for (let i = 0; i < M[current].length; i++) {
+            if (M[current][i] === 1) {
+                dfs(i)
+            }
+        }
+    }
+
+    for (let i = 0; i < M.length; i++) {
+        if (!visited.has(i)) {
+            dfs(i)
+            count++
+        }
+    }
+    return count 
+};
+
 var findCircleNum = function(M) {
     let adjacentList = {}
     let visited = new Set()
@@ -34,3 +62,40 @@ const M = [[1,1,0],
             [0,0,1]]
 
 console.log(findCircleNum(M))
+
+// 第二次做
+
+var findCircleNum = function(M) {
+    const graph = {}
+
+    for (let i = 0; i < M.length; i++) {
+        graph[i] = []
+        for (let j = 0; j < M[0].length; j++) {
+            if (M[i][j] === 1 && i !== j) {
+                graph[i].push(j)
+            }
+        }
+    }
+
+    const visited = new Set()
+    let num = 0
+
+    const dfs = (cur) => {
+        if (visited.has(cur)) {return}
+
+        visited.add(cur)
+        const neighbirs = graph[cur]
+
+        for (let i = 0; i < neighbirs.length; i++) {
+            dfs(neighbirs[i])
+        }
+    }
+
+    for (let i = 0; i < M.length; i++) {
+        if (!visited.has(i)) {
+            dfs(i)
+            num++
+        }
+        if (visited.size === M.length) {return num}
+    }
+}
