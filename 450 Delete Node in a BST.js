@@ -58,3 +58,30 @@ var deleteNode = function(root, key) {
     }
     return root
 };
+
+// 第二次作用 recursion 程式碼短很多，但 time complexity 變高
+
+var deleteNode = function(root, key) {
+    const dfs = (cur) => {
+        if (cur === null) {return null}
+
+        if (cur.val === key) {
+            if (cur.left === null && cur.right === null) {return null}
+            if (cur.left === null) {return cur.right}
+            if (cur.right === null) {return cur.left}
+
+            let current = cur.right
+            while (current.left !== null) {
+                current = current.left
+            }
+            current.left = cur.left
+            return cur.right
+        }
+        
+        cur.left = dfs(cur.left)
+        cur.right = dfs(cur.right)
+        return cur
+    }
+
+    return dfs(root)
+};

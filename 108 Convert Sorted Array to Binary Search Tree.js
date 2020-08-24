@@ -79,3 +79,21 @@ var sortedArrayToBST = function(nums) {
 const arr = [0, 1, 2, 3, 4, 5]
 console.log(sortedArrayToBST(arr))
 
+// 注意會有 left > right 的狀況，此時要 return null
+
+var sortedArrayToBST = function(nums) {
+    
+    const build = (left, right) => {
+        if (left === right) {return new TreeNode(nums[left])}
+        if (left > right) {return null}
+
+        const mid = Math.floor((left + right) / 2)
+        const node = new TreeNode(nums[mid])
+        node.left = build(left, mid - 1)
+        node.right = build(mid + 1, right)
+
+        return node
+    }
+    return build(0, nums.length - 1)
+};
+

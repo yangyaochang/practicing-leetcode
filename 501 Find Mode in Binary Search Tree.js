@@ -34,3 +34,48 @@ var findMode = function(root) {
     dfs(root)
     return list
 };
+
+// 可以 inorder traversal 變成 sorted array，當作在 sorted array 裡面找出現頻率最高的值
+
+var findMode = function(root) {
+    let nums = []
+    
+    const dfs = (cur) => {
+        if (cur === null) {return}
+
+        dfs(cur.left)
+        nums.push(cur.val)
+        dfs(cur.right)
+    }
+
+    dfs(root)
+    if (nums.length === 0) {return []}
+    let preVal = nums[0]
+    let count = 1
+    let maxFrequency = 1
+    let list = []
+
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] === preVal) {
+            count++
+        } else {
+            if (count === maxFrequency) {
+                list.push(preVal)
+            } else if (count > maxFrequency) {
+                maxFrequency = count
+                list = [preVal]
+            }
+            preVal = nums[i]
+            count = 1
+        }
+    }
+
+    if (count === maxFrequency) {
+        list.push(preVal)
+    } else if (count > maxFrequency) {
+        maxFrequency = count
+        list = [preVal]
+    }
+
+    return list
+};

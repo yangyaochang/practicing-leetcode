@@ -24,3 +24,25 @@ var copyRandomList = function(head) {
     
     return dfs(head)
 };
+
+/*
+用 next 走訪一遍 list 會建立好所以的 node 並存在 cache 裡，之後再以 random 調用遞迴時就可以直接存取已經建立的 nodes
+*/
+
+var copyRandomList = function(head) {
+    const cache = new Map()
+    
+    const build = (current) => {
+        if (current === null) {return null}
+        if (cache.has(current)) {return cache.get(current)}
+        
+        const newNode = new Node(current.val)
+        cache.set(current, newNode)
+        
+        newNode.next = build(current.next)
+        newNode.random = build(current.random)
+        return newNode
+    }
+    
+    return build(head)
+};

@@ -4,6 +4,14 @@
 
 669 跟 1325 這種有從下往上重組樹狀結構的
 都有將 return value assign 給 current.left, current.right 的操作
+後來需要調整樹狀結構的題目都有用到此概念
+
+## 1485. Clone Binary Tree With Random Pointer
+## 133 Clone Graph
+## 138 Copy List with Random Pointer
+
+以上三題做法極喔類似 可以一併複習，也有用到像 # 1325 一樣重構整棵樹的概念
+
 
 ## 951. Flip Equivalent Binary Trees
 
