@@ -52,3 +52,43 @@ const numCourses = 2
 const prerequisites = [[0,1],[1,0]]
 
 console.log(findOrder(numCourses, prerequisites))
+
+// 跟第一次做的心得一樣，把 topological sort 與 detect cycle 合併在 dfs 裡
+
+var findOrder = function(numCourses, prerequisites) {
+    const graph = {}
+
+    for (let i = 0; i < numCourses; i++) {
+        graph[i] = []
+    }
+
+    prerequisites.forEach(course => {
+        graph[course[1]].push(course[0])
+    })
+
+    const visited = new Set()
+    const ancestors = new Set()
+    let cyclic = false
+    const list = []
+
+    const dfs = (cur) => {
+        if (ancestors.has(cur)) {
+            cyclic = true
+            return
+        }
+        if (visited.has(cur)) {return}
+
+        visited.add(cur)
+        ancestors.add(cur)
+        const courses = graph[cur]
+        courses.forEach(course => {dfs(course)})
+        ancestors.delete(cur)
+        list.push(cur)
+    }
+
+    for (let i = 0; i < numCourses; i++) {
+        dfs(i)
+    }
+
+    return (cyclic) ? [] : list.reverse()
+};

@@ -59,3 +59,55 @@ const values = [2.0,3.0]
 const queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
 
 console.log(calcEquation(equations, values, queries))
+
+// 第二次做
+
+var calcEquation = function(equations, values, queries) {
+    const graph = {}
+    const list = new Array(queries.length)
+
+    for (i = 0; i < equations.length; i++) {
+        if (equations[i][0] in graph) {
+            graph[equations[i][0]].push([equations[i][1], values[i]])
+        } else {
+            graph[equations[i][0]] = [[equations[i][1], values[i]]]
+        }
+        if (equations[i][1] in graph) {
+            graph[equations[i][1]].push([equations[i][0], 1 / values[i]])
+        } else {
+            graph[equations[i][1]] = [[equations[i][0], 1 / values[i]]]
+        }
+    }
+
+    const visited = new Set()
+    const dfs = (cur, des, val) => {
+        if (cur in graph === false) {return null}
+        if (visited.has(cur)) {return null}
+        if (cur === des) {return val}
+
+        visited.add(cur)
+
+        const neighbors = graph[cur]
+        for (let i = 0; i < neighbors.length; i++) {
+            const v = dfs(neighbors[i][0], des, val * neighbors[i][1])
+            if (v) {
+                visited.delete(cur)
+                return v
+            }
+        }
+        visited.delete(cur)
+        return null
+    }
+
+    for (let i = 0; i < queries.length; i++) {
+        const v = dfs(queries[i][0], queries[i][1], 1)
+        list[i] = (v !== null) ? v : -1
+    }
+    return list
+};
+
+const equations = [ ["a", "b"], ["b", "c"] ]
+const values = [2.0, 3.0]
+const queries = [ ["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"] ]
+
+console.log(calcEquation(equations, values, queries))

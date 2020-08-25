@@ -43,3 +43,42 @@ var eventualSafeNodes = function(graph) {
 const graph = [[1,2],[2,3],[5],[0],[5],[],[]]
 
 console.log(eventualSafeNodes(graph))
+
+/*
+用 visited 當作 cache 紀錄已經檢查過的 node 來優化 dfs，如果往下繼續走會有 cycle 就在 visited 存 visited[cur] = false 
+*/
+
+var eventualSafeNodes = function(graph) {
+    const adjacentList = {}
+    const list = []
+
+    graph.forEach((edge, index) => {
+        adjacentList[index] = edge
+    })
+
+    const visited = {}
+    const ancestors = new Set()
+
+    const dfs = (cur) => {
+        if (ancestors.has(cur)) {return false}
+        if (cur in visited) {return visited[cur]}
+
+        ancestors.add(cur)
+        const neighbors = adjacentList[cur]
+        for (let i = 0; i < neighbors.length; i++) {
+            if (!dfs(neighbors[i])) {
+                visited[cur] = false
+                ancestors.delete(cur)
+                return false
+            }
+        } 
+        visited[cur] = true
+        ancestors.delete(cur)
+        return true
+    }
+
+    for (let i = 0; i< graph.length; i++) {
+        if (dfs(i)) {list.push(i)}
+    }
+    return list
+};

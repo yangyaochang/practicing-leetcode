@@ -98,3 +98,43 @@ const numCourses = 2
 const prerequisites = [[1,0]]
 
 console.log(canFinish(numCourses, prerequisites))
+
+// 第三次做
+
+var canFinish = function(numCourses, prerequisites) {
+    const graph = {}
+    
+    for (let i = 0; i < numCourses; i++) {
+        graph[i] = []
+    }
+
+    for (let i = 0; i < prerequisites.length; i++) {
+        graph[prerequisites[i][1]].push(prerequisites[i][0])
+    }
+
+    const visited = new Set()
+    const ancestors = new Set()
+
+    const dfs = (cur) => {
+        if (ancestors.has(cur)) {return false}
+        if (visited.has(cur)) {return true}
+
+        visited.add(cur)
+        ancestors.add(cur)
+
+        const neighbors = graph[cur]
+        for (let i = 0; i < neighbors.length; i++) {
+            if (dfs(neighbors[i]) === false) {
+                ancestors.delete(cur)
+                return false
+            }
+        }
+        ancestors.delete(cur)
+        return true
+    }
+
+    for (let i = 0; i < numCourses; i++) {
+        if (dfs(i) === false) {return false}
+    }
+    return true
+};
