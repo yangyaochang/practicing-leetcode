@@ -89,3 +89,25 @@ const target = 7
 
 console.log(combinationSum(candidates, target))
 
+// 第四次做
+
+var combinationSum = function(candidates, target) {
+    const list = []
+
+    const sum = (path, curSum, start) => {
+        if (curSum > target) {return}
+        if (curSum === target) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = start; i < candidates.length; i++) {
+            path.push(candidates[i])
+            sum(path, curSum + candidates[i], i)
+            path.pop()
+        }
+    }
+
+    sum([], 0, 0)
+    return list
+};

@@ -69,3 +69,36 @@ var letterCombinations = function(digits) {
 const digits = '23'
 
 console.log(letterCombinations(digits))
+
+// 第三次做 
+
+var letterCombinations = function(digits) {
+    const dictionary = {
+        2: ['a', 'b', 'c'],
+        3: ['d', 'e', 'f'],
+        4: ['g', 'h', 'i'],
+        5: ['j', 'k', 'l'],
+        6: ['m', 'n', 'o'],
+        7: ['p', 'q', 'r', 's'],
+        8: ['t', 'u', 'v'],
+        9: ['w', 'x', 'y', 'z'],
+    }
+
+    const list = []
+    if (digits === '') {return list}
+
+    const findCombinations = (str, index) => {
+        if (index === digits.length) {
+            list.push(str)
+            return
+        }
+
+        const options = dictionary[digits[index]]
+        options.forEach(letter => {
+            findCombinations(str + letter, index + 1)
+        })
+    }
+
+    findCombinations('', 0)
+    return list
+};
