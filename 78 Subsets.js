@@ -72,3 +72,31 @@ var subsets = function(nums) {
 const nums = [-1,1,2]
 
 console.log(subsets(nums))
+
+// 第四次做
+
+var subsets = function(nums) {
+    const list = []
+    
+    const findSubsets = (path, start) => {
+        if (start === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        list.push([...path])
+        
+        for (let i = start; i < nums.length; i++) {
+            path.push(nums[i])
+            findSubsets(path, i + 1)
+            path.pop()
+        }
+    }
+
+    findSubsets([], 0)
+    return list
+}
+
+const nums = [1,2,3]
+
+console.log(subsets(nums))

@@ -51,3 +51,32 @@ const n = 4
 const k = 2
 
 console.log(combine(n , k))
+
+/*
+第三次做
+*/
+
+var combine = function(n, k) {
+    const list = []
+
+    const findCombination = (path, start) => {
+        if (path.length === k) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = start; i <= n; i ++) {
+            path.push(i)
+            findCombination(path, i + 1)
+            path.pop()
+        }
+    }
+
+    findCombination([], 1)
+    return list
+}
+
+const n = 4
+const k = 2
+
+console.log(combine(n, k))
