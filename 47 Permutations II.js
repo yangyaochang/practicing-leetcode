@@ -56,3 +56,33 @@ var permuteUnique = function(nums) {
 const nums = [1,1,2]
 
 console.log(permuteUnique(nums))
+
+// 不要忘了 nums 有 duplicates 要先 sort
+
+var permuteUnique = function(nums) {
+    const list = []
+    const used = new Array(nums.length)
+    used.fill(false)
+    
+    nums.sort((a, b) => a - b)
+
+    const findPermutations = (path, used) => {
+        if (path.length === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = 0; i < nums.length; i++) {
+            if (i > 0 && used[i - 1] === false && nums[i] === nums[i - 1]) {continue}
+            if (used[i]) {continue}
+            used[i] = true
+            path.push(nums[i])
+            findPermutations(path, used)
+            path.pop()
+            used[i] = false
+        }
+    }
+
+    findPermutations([], used)
+    return list
+};

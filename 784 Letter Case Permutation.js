@@ -57,3 +57,32 @@ var letterCasePermutation = function(S) {
 const  S = "a1b2"
 
 console.log(letterCasePermutation(S))
+
+// 第三次做
+
+var letterCasePermutation = function(S) {
+    const list  = []
+
+    const construct = (path, index) => {
+        if (index === S.length) {
+            list.push(path.join(''))
+            return
+        }
+
+        if (/[a-zA-Z]/.test(S[index])) {
+            path.push(S[index].toUpperCase())
+            construct(path, index + 1)
+            path.pop()
+            path.push(S[index].toLowerCase())
+            construct(path, index + 1)
+            path.pop()
+        } else {
+            path.push(S[index])
+            construct(path, index + 1)
+            path.pop()
+        }
+    }
+
+    construct([], 0)
+    return list
+};

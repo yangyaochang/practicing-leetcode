@@ -57,3 +57,30 @@ var permute = function(nums) {
 const nums = [1,2,3]
 
 console.log(permute(nums))
+
+// 第三次做
+
+var permute = function(nums) {
+    const list = []
+    const used = new Array(nums.length)
+    used.fill(false)
+
+    const findPermutations = (path, used) => {
+        if (path.length === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = 0; i < nums.length; i++) {
+            if (used[i]) {continue}
+            used[i] = true
+            path.push(nums[i])
+            findPermutations(path, used)
+            path.pop()
+            used[i] = false
+        }
+    }
+
+    findPermutations([], used)
+    return list
+}
