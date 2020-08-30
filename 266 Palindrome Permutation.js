@@ -22,3 +22,23 @@ var canPermutePalindrome = function(s) {
 const s = "carerac"
 
 console.log(canPermutePalindrome(s))
+
+// 第二次做
+
+var canPermutePalindrome = function(s) {
+    let numOfOdd = 0
+    const chars = []
+
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] in chars) {chars[s[i]]++}
+        else {chars[s[i]] = 1}
+    }
+
+    const keys = Object.keys(chars)
+
+    keys.forEach(key => {
+        if (chars[key] % 2 === 1) {numOfOdd++}
+    })
+
+    return numOfOdd <= 1
+}
