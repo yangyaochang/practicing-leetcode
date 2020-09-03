@@ -118,3 +118,52 @@ const matrix = [[0,0,0],
                 [1,1,1]]
 
 console.log(updateMatrix(matrix))
+
+/* 
+第三次做
+有一個函數 bfs 接受一個 matrix 裡的位置為參數，返回該位置與最近的 0 的距離
+*/
+
+var updateMatrix = function(matrix) {
+    
+    const bfs = (row, col) => {
+        const queue = []
+        const visited = new Set()
+
+        queue.push([[row, col], 0])
+        visited.add(`${row}_${col}`)
+
+        while (queue.length > 0) {
+            const [[r, c], level] = queue.shift()
+
+            if (matrix[r][c] === 0) {return level}
+
+            if (r + 1 < matrix.length && visited.has(`${r + 1}_${c}`) === false) {
+                queue.push([[r + 1, c], level + 1])
+                visited.add(`${r + 1}_${c}`)
+            }
+            if (r - 1 >= 0 && visited.has(`${r - 1}_${c}`) === false) {
+                queue.push([[r - 1, c], level + 1])
+                visited.add(`${r - 1}_${c}`)
+            }
+            if (c + 1 < matrix[0].length && visited.has(`${r}_${c + 1}`) === false) {
+                queue.push([[r, c + 1], level + 1])
+                visited.add(`${r}_${c + 1}`)
+            }
+            if (c - 1 >= 0 && visited.has(`${r}_${c - 1}`) === false) {
+                queue.push([[r, c - 1], level + 1])
+                visited.add(`${r}_${c - 1}`)
+            }
+        }
+    }
+
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[0].length; j++) {
+            if (matrix[i][j] === 1) {
+                matrix[i][j] = bfs(i, j)
+            }
+        }
+    }
+
+    return matrix
+};

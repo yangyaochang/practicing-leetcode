@@ -40,3 +40,50 @@ var partition = function(s) {
 const s = "aab"
 
 console.log(partition(s))
+
+/*
+這題的重點在如何 partition 一個 string
+直覺上需要使用 two pointers 與 string.slice()
+*/
+
+var partition = function(s) {
+    const list = []
+
+    const dfs = (left, path) => {
+        if (left === s.length) {
+            list.push([...path])
+            return
+        }
+
+        for (let right = left + 1; right <= s.length; right ++) {
+            const subStr = s.slice(left, right)
+            if (isPalindrome(subStr)) {
+                path.push(subStr)
+                dfs(right, path)
+                path.pop()
+            }
+        }
+    }
+
+    dfs(0, [])
+    return list
+
+    function isPalindrome(str) {
+        let left = 0
+        let right = str.length - 1
+
+        while (left <= right) {
+            if (str[left] === str[right]) {
+                left++
+                right--
+            } else {
+                return false
+            }
+        }
+        return true
+    }
+};
+
+const s = "aab"
+
+console.log(partition(s))
