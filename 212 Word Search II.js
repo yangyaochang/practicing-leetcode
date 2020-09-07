@@ -54,3 +54,68 @@ const board = [["a","b"],["a","a"]]
 const words = ["aba","baa","bab","aaab","aaa","aaaa","aaba"]
 
 console.log(findWords(board, words))
+
+// 第二次做
+
+var findWords = function(board, words) {
+    const cache = {}
+    const list = []
+    const visited = new Set()
+    const found = new Set()
+
+    words.forEach(word => {
+        if (word[0] in cache) {
+            cache[word[0]].push(word)
+        } else {
+            cache[word[0]] = [word]
+        }
+    })
+
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            if (board[i][j] in cache) {
+                cache[board[i][j]].forEach((word, index) => {
+                    if (find(word, i, j)) {
+                        cache[board[i][j]].splice(index, 1)
+                    }
+                })
+            }
+        }
+    }
+
+    return list
+
+    function find(word, r, c) {
+
+        const dfs = (r, c, index) => {
+            const position = `${r}_${c}`
+            if (r < 0 || c < 0 || r >= board.length || c >= board[0].length) {return false}
+            if (visited.has(position)) {return false}
+            if (board[r][c] !== word[index]) {return false}
+            if (index === word.length - 1 && word[index] === board[r][c]) {
+                if (found.has(word) === false) {
+                    list.push(word)
+                    found.add(word)
+                }
+                return true
+            }
+            
+
+            visited.add(position)
+            let down = dfs(r + 1, c, index + 1)
+            let up = dfs(r - 1, c, index + 1)
+            let right = dfs(r, c + 1, index + 1)
+            let left = dfs(r, c - 1, index + 1)
+            visited.delete(position)
+            return up || down || right || left
+        }
+
+        return dfs(r, c, 0)
+    }
+}
+
+const board = [["a","b"],["a","a"]]
+
+const words = ["aba","baa","bab","aaab","aaa","aaaa","aaba"]
+
+console.log(findWords(board, words))

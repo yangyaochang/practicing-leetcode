@@ -102,3 +102,40 @@ var letterCombinations = function(digits) {
     findCombinations('', 0)
     return list
 };
+
+// It seems like way too many times
+
+var letterCombinations = function(digits) {
+    const dict = {
+        2: ['a', 'b', 'c'],
+        3: ['d', 'e', 'f'],
+        4: ['g', 'h', 'i'],
+        5: ['j', 'k', 'l'],
+        6: ['m', 'n', 'o'],
+        7: ['p', 'q', 'r', 's'],
+        8: ['t', 'u', 'v'],
+        9: ['w', 'x', 'y', 'z']
+    }
+
+    const list = []
+
+    const combineLeters = (str, index) => {
+        if (index === digits.length) {
+            list.push(str)
+            return
+        }
+
+        const letters = dict[digits[index]]
+        for (let i = 0; i < letters.length; i++) {
+            combineLeters(str + letters[i], index + 1)
+        }
+    }
+
+    if (digits === '') {return list}
+    combineLeters('', 0)
+    return list
+}
+
+const digits = '23'
+
+console.log(letterCombinations(digits))
