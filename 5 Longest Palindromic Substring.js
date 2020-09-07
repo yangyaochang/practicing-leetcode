@@ -27,3 +27,37 @@ var longestPalindrome = function(s) {
 const s = "babad"
 
 console.log(longestPalindrome(s))
+
+/*
+第二次做
+重點在於知道 palindrome 有兩種可能要檢查
+*/
+
+var longestPalindrome = function(s) {
+    const lengthOfPalindrome = (left, right) => {
+        while (left >= 0 && right < s.length) {
+            if (s[left] === s[right]) {
+                left--
+                right++
+            } else {
+                break
+            }
+        }
+        return s.slice(left + 1, right)
+    }
+
+    let longest = ''
+
+    for (let i = 0; i < s.length; i++) {
+        let p1 = lengthOfPalindrome(i, i)
+        let p2 = lengthOfPalindrome(i, i + 1)
+
+        longest = (p1.length > longest.length) ? p1 : longest
+        longest = (p2.length > longest.length) ? p2 : longest
+    }
+    return longest
+}
+
+const s = "babad"
+
+console.log(longestPalindrome(s))

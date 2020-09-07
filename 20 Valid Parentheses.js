@@ -1,3 +1,28 @@
+/*
+Use an array as a stack
+*/
+
+var isValid = function(s) {
+    const stack = []
+
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === '(' || s[i] === '[' || s[i] === '{') {
+            stack.push(s[i])
+        } else {
+            const left = stack.pop()
+
+            if ((s[i] === ')' && left !== '(') || (s[i] === '}' && left !== '{') || (s[i] === ']' && left !== '[')) {
+                return false
+            }
+        }
+    }
+    return stack.length === 0
+}
+
+const s = "()[]{}"
+
+console.log(isValid(s))
+
 var isValid = function(s) {
     let opening = new Stack()
     let parenthesesArr = s.split('')

@@ -29,7 +29,6 @@ console.log(isPalindrome(s))
 // 第二次做
 
 var isPalindrome = function(s) {
-    
     s = s.match(/[a-zA-Z0-9]/g)
     
     if (s === null) {return true}

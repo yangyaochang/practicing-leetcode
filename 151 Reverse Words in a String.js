@@ -14,3 +14,21 @@ var reverseWords = function(s) {
 const s = "a good   example"
 
 console.log(reverseWords(s))
+
+// 第二次做
+
+var reverseWords = function(s) {
+    s = s.split(' ').reverse()
+
+    const reversed = []
+
+    for (let i = 0; i < s.length; i++) {
+        if (s[i].length !== 0) {reversed.push(s[i])}
+    }
+
+    return reversed.join(' ')
+}
+
+const s = "a good   example"
+
+console.log(reverseWords(s))
