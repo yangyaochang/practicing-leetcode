@@ -46,3 +46,15 @@ var twoSum = function(nums, target) {
         }
     }
 };
+
+// 第二次做
+
+var twoSum = function(nums, target) {
+    const cache = {}
+
+    for (let i = 0; i < nums.length; i++) {
+        const num2 = target - nums[i]
+        if (num2 in cache) {return [i, cache[num2]]}
+        else {cache[nums[i]] = i}
+    }
+};

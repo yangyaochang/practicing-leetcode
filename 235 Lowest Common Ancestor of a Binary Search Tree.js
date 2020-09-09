@@ -75,3 +75,25 @@ var lowestCommonAncestor = function(root, p, q) {
     dfs(root)
     return LCA
 };
+
+// 第三次做
+
+var lowestCommonAncestor = function(root, p, q) {
+    let LCA = null
+
+    let max = Math.max(p.val, q.val)
+    let min = Math.min(p.val, q.val)
+
+    const dfs = (cur) => {
+        if (cur === null) {return}
+        if (LCA !== null) {return}
+
+        if (max > cur.val && cur.val > min) {LCA = cur}
+        if (cur.val === max || cur.val === min) {LCA = cur}
+
+        dfs(cur.left)
+        dfs(cur.right)
+    }
+    dfs(root)
+    return LCA
+}

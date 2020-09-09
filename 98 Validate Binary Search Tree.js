@@ -30,3 +30,15 @@ var isValidBST = function(root) {
 
     return dfs(root, null, null)
 }
+
+var isValidBST = function(root) {
+    const validate = (cur, upperLimit, lowerLimit) => {
+        if (cur === null) {return true}
+        if (upperLimit !== null && cur.val >= upperLimit) {return false}
+        if (lowerLimit !== null && cur.val <= lowerLimit) {return false}
+        
+        return validate(cur.left, cur.val, lowerLimit) && validate(cur.right, upperLimit, cur.val)
+    }
+    
+    return validate(root, null, null)
+}
