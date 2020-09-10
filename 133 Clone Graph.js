@@ -1,6 +1,5 @@
 /*
 JavaScript Object 的 key 只能是 string，所以用 node.val 來存
-
 */
 
 var cloneGraph = function(node) {
@@ -46,4 +45,30 @@ var cloneGraph = function(node) {
     }
 
     return dfs(node)
+}
+
+/*
+第三次做
+if (cur === null) {return null} 的 base case 不要忘了
+如果 graph 裡的值都是唯一的，可以用 object 取代 map 的功能
+*/
+
+var cloneGraph = function(node) {
+    const cache = new Map()
+
+    const clone = (cur) => {
+        if (cache.has(cur)) {return cache.get(cur)}
+        if (cur === null) {return null}
+
+        const node = new Node(cur.val)
+        const neighbors = cur.neighbors
+        cache.set(cur, node)
+
+        for (let i = 0; i < neighbors.length; i++) {
+            node.neighbors.push(clone(neighbors[i]))
+        }
+        return node
+    }
+
+    return clone(node)
 }

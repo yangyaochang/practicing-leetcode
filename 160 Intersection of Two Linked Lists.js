@@ -36,4 +36,48 @@ var getIntersectionNode = function(headA, headB) {
     }
 };
 
+// 第二次做
+
+var getIntersectionNode = function(headA, headB) {
+    let lengthA = 0
+    let lengthB = 0
+    let currentA = headA
+    let currentB = headB
+
+    while (currentA !== null) {
+        lengthA++
+        currentA = currentA.next
+    }
+
+    while (currentB !== null) {
+        lengthB++
+        currentB = currentB.next
+    }
+
+    let diff = Math.abs(lengthA - lengthB)
+
+    let fast 
+    let slow
+
+    if (lengthA > lengthB) {
+        fast = headA
+        slow = headB
+    } else {
+        fast = headB
+        slow = headA
+    }
+
+    while (diff > 0) {
+        fast = fast.next
+        diff--
+    }
+
+    while (fast !== null) {
+        if (fast === slow) {return fast}
+        fast = fast.next
+        slow = slow.next
+    }
+    return null
+}
+
 

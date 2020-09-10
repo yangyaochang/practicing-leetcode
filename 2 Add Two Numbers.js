@@ -45,3 +45,44 @@ var addTwoNumbers = function(l1, l2) {
     }
     return head
 };
+
+/*
+若其中一個 list 已走完，給他 0
+const val1 = (p1 !== null) ? p1.val : 0
+const val2 = (p2 !== null) ? p2.val : 0
+
+記得 carry 加完要歸零
+*/
+
+var addTwoNumbers = function(l1, l2) {
+    let carry = 0
+    let head = null
+    let preNode = null
+    let p1 = l1
+    let p2 = l2
+
+    while (p1 !== null || p2 !== null) {
+        const val1 = (p1 !== null) ? p1.val : 0
+        const val2 = (p2 !== null) ? p2.val : 0
+
+        let num = val1 + val2 + carry
+        carry = 0
+        if (num >= 10) {
+            num = num % 10
+            carry = 1
+        }
+
+        const node = new ListNode(num)
+        if (head === null) {head = node}
+        else {preNode.next = node}
+        preNode = node
+
+        if (p1 !== null) {p1 = p1.next}
+        if (p2 !== null) {p2 = p2.next}
+    }
+
+    if (carry > 0) {
+        preNode.next = new ListNode(carry)
+    }
+    return head
+}

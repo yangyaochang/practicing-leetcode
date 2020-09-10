@@ -34,3 +34,22 @@ var hasCycle = function(head) {
     
     return false
 };
+
+/* 
+第三次做
+上一次判斷 head.next === null 是多餘的
+*/
+
+var hasCycle = function(head) {
+    let fast = head
+    let slow = head
+
+    while (head === null) {return false}
+
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next
+        slow = slow.next
+        if (fast === slow) {return true}
+    }
+    return false
+}

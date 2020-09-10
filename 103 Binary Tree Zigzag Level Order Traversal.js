@@ -1,3 +1,7 @@
+/*
+其實就是 BFS 後根據 level 來 reverse
+*/
+
 var zigzagLevelOrder = function(root) {
     if (root === null) {return []}
     
@@ -22,3 +26,28 @@ var zigzagLevelOrder = function(root) {
     
     return list
 };
+
+var zigzagLevelOrder = function(root) {
+    const queue = []
+    const list = []
+
+    if (root === null) {return list}
+
+    queue.push([root, 0])
+
+    while (queue.length > 0) {
+        const [cur, level] = queue.shift()
+
+        if (level === list.length) {list.push([])}
+        list[level].push(cur.val)
+
+        if (cur.left) {queue.push([cur.left, level + 1])}
+        if (cur.right) {queue.push([cur.right, level + 1])}
+    }
+
+    list.forEach((l, i) => {
+        if (i % 2 === 1) {l.reverse()}
+    })
+
+    return list
+}
