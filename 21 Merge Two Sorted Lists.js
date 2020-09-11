@@ -37,3 +37,46 @@ var mergeTwoLists = function(l1, l2) {
 
     return head
 };
+
+// 第二次做
+
+var mergeTwoLists = function(l1, l2) {
+    if (l1 === null && l2 === null) {return null}
+    if (l1 === null) {return l2}
+    if (l2 === null) {return l1}
+
+    let p1 = l1
+    let p2 = l2
+    let head = null
+    let pre = null
+
+    if (p1.val <= p2.val) {
+        head = p1
+        pre = p1
+        p1 = p1.next
+    } else {
+        head = p2
+        pre = p2
+        p2 = p2.next
+    }
+
+    while (p1 !== null && p2 !== null) {
+        if (p1.val <= p2.val) {
+            pre.next = p1
+            pre = p1
+            p1 = p1.next
+        } else {
+            pre.next = p2
+            pre = p2
+            p2 = p2.next
+        }
+    }
+
+    if (p1 !== null) {
+        pre.next = p1
+    } else if (p2 !== null) {
+        pre.next = p2
+    }
+
+    return head
+}
