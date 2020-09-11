@@ -46,3 +46,24 @@ var copyRandomList = function(head) {
     
     return build(head)
 };
+
+// 第三次做
+
+var copyRandomList = function(head) {
+    const cache = new Map()
+    
+    const copy = (cur) => {
+        if (cur === null) {return null}
+        if (cache.has(cur)) {return cache.get(cur)}
+
+        const node = new Node(cur.val)
+        cache.set(cur, node)
+
+        node.next = copy(cur.next)
+        node.random = copy(cur.random)
+
+        return node
+    }
+
+    return copy(head)
+};

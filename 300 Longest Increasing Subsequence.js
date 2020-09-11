@@ -1,3 +1,9 @@
+/*
+Subsequence: Ordered but not continuous
+
+建立一個 dp[i] 紀錄在 nums[i] 之前一共有幾個比 nums[i] 小
+*/
+
 var lengthOfLIS = function(nums) {
     if (nums.length === 0) {return 0}
     
@@ -14,3 +20,23 @@ var lengthOfLIS = function(nums) {
     
     return Math.max(...dp)
 };
+
+var lengthOfLIS = function(nums) {
+    if (nums.length === 0) {return 0}
+
+    const arr = new Array(nums.length)
+    arr.fill(0)
+
+    for (let i = 1; i < nums.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+                arr[i] = Math.max(arr[j] + 1, arr[i])
+            }
+        }
+    }
+    return Math.max(...arr) + 1
+}
+
+const nums = [10,9,2,5,3,7,101,18]
+
+console.log(lengthOfLIS(nums))
