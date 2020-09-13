@@ -1,7 +1,7 @@
 var myAtoi = function(str) {
     let index = 0
     let isNegative = false
-    const nums= []
+    const nums = []
 
     while (str[index] === ' ') {
         index++

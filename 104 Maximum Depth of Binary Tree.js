@@ -38,3 +38,21 @@ var maxDepth = function(root) {
     dfs(root, 0)
     return depth
 }
+
+var maxDepth = function(root) {
+    const queue = []
+    let maxDepth = 0
+
+    if (root === null) {return maxDepth}
+
+    queue.push([root, 1])
+
+    while (queue.length > 0) {
+        const [cur, level] = queue.shift()
+
+        maxDepth = level
+        if (cur.left) {queue.push([cur.left, level + 1])}
+        if (cur.right) {queue.push([cur.right, level + 1])}
+    }
+    return maxDepth
+}
