@@ -1,3 +1,29 @@
+/*
+不是所有 dp 都是先 Top-down approach 推出窮舉再以 Memoization 優化，再轉成 Tabulation 
+這題可以直接以 Bottom-up Approach 分析
+*/
+
+var minimumTotal = function(triangle) {
+    const dp = []
+
+    for (let i = 0; i < triangle.length; i++) {
+        const row = new Array(i + 1)
+        dp.push(row)
+    }
+
+    for (let i = triangle.length - 1; i >= 0; i--) {
+        for (let j = 0; j < triangle[i].length; j++) {
+            if (i === triangle.length - 1) {
+                dp[i][j] = triangle[i][j]
+            } else {
+                dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle[i][j]
+            }
+        }
+    }
+
+    return dp[0][0]
+}
+
 var minimumTotal = function(triangle) {
     let min = Infinity
 

@@ -22,3 +22,58 @@ const m = 23
 const n = 12
 
 console.log(uniquePaths(m, n))
+
+// Memoization
+
+var uniquePaths = function(m, n) {
+    const cache = {}
+
+    const move = (r, c) => {
+        const position = `${r}_${c}`
+
+        if (r >= n || c >= m) {return 0}
+        if (r === n - 1 && c === m - 1) {return 1}
+        if (position in cache) {return cache[position]}
+
+        cache[position] = move(r + 1, c) + move(r, c + 1)
+        return cache[position]
+    }
+
+    return move(0, 0)
+}
+
+const m = 3
+const n = 2
+
+console.log(uniquePaths(m, n))
+
+// Tabulation
+
+var uniquePaths = function(m, n) {
+    const dp = []
+
+    for (let i = 0; i < n; i++) {
+        const row = new Array(m)
+        row.fill(0)
+        dp.push(row)
+    }
+
+    dp[0][0] = 1
+    // Base Case 想不到可以回到 dp[i][j] 的定義，從 [0][0] 走到 [0][0] 有幾種方法 - 有一種
+
+    for (let j = 1; j < m; j++) {
+        dp[0][j] = dp[0][j - 1]
+    }
+
+    for (let i = 1; i < n; i++) {
+        dp[i][0] = dp[i - 1][0]
+    }
+
+    for (let i = 1; i < n; i++) {
+        for (let j = 1; j < m; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        }
+    }
+
+    return dp[n - 1][m - 1]
+}
