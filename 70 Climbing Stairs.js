@@ -55,3 +55,64 @@ var climbStairs = function(n) {
 
 const n = 3
 console.log(climbStairs(n))
+
+/*
+先推出窮舉方法再用 Memoization 優化
+*/
+
+var climbStairs = function(n) {
+    const cache = {}
+
+    const climb = (stair) => {
+        if (stair === n) {return 1}
+        if (stair > n) {return 0}
+        if (stair in cache) {return cache[stair]}
+
+        cache[stair] = climb(stair + 1) + climb(stair + 2)
+        return cache[stair]
+    }
+
+    return climb(0)
+};
+
+/*
+有了窮舉結構根據四步驟思考流程以 Tabulation 優化
+
+1. 找到狀態
+2. 定義 dp[i] 的意義
+3. 列出狀態轉移方程式
+4. 以狀態作為 dp[i] 的 index，為 base cases 賦值，以狀態轉移方程式求解
+*/
+
+var climbStairs = function(n) {
+    const dp = new Array(n + 1)
+    dp.fill(1)
+
+    for (let i = 2; i < dp.length; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2]
+    }
+    return dp[n]
+};
+
+const n = 3
+
+console.log(climbStairs(n))
+
+/*
+進一步壓縮 Space Complexity
+*/
+
+var climbStairs = function(n) {
+    let dp_0 = 1
+    let dp_1 = 1
+    
+    if (n === 0) {return dp_0}
+    if (n === 1) {return dp_1}
+
+    for (let i = 0; i < n - 1; i++) {
+        dp_i = dp_0 + dp_1
+        dp_0 = dp_1
+        dp_1 = dp_i
+    }
+    return dp_i
+};

@@ -32,3 +32,27 @@ var maxSubArray = function(nums) {
     }
     return maxSum
 };
+
+// 第三次做
+
+var maxSubArray = function(nums) {
+    let left = 0
+    let right = 0
+    let sum = 0
+    let maxSum = -Infinity
+
+    while (right < nums.length) {
+        sum += nums[right]
+        maxSum = Math.max(maxSum, sum)
+
+        if (sum <= 0) {
+            left = right + 1
+            right = left
+            sum = 0
+        } else if (sum > 0) {
+            right++
+        }
+    }
+
+    return maxSum
+};
