@@ -33,3 +33,30 @@ var canPartition = function(nums) {
 const nums = [1, 5, 11, 5]
 
 console.log(canPartition(nums))
+
+// 第二次做
+
+var canPartition = function(nums) {
+    let total = 0
+    nums.sort((a, b) => a - b)
+
+    for (let i = 0; i < nums.length; i++) {
+        total += nums[i]
+    }
+
+    if (total % 2 !== 0) {return false}
+    let subTotal = total / 2
+
+    const add = (sum, start) => {
+        if (sum === subTotal) {return true}
+        if (sum > subTotal) {return false}
+
+        for (let i = start; i < nums.length; i++) {
+            if (i > start && nums[i] === nums[i - 1]) {continue}
+            if (add(sum + nums[i], i + 1)) {return true}
+        }
+        return false
+    }
+
+    return add(0, 0)
+};
