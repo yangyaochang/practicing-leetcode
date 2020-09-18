@@ -52,3 +52,45 @@ function longestCommonSubsequence_DP(str1, str2) {
 }
 
 console.log(longestCommonSubsequence_DP(str1, str2))
+
+// Brute force
+
+var longestCommonSubsequence = function(text1, text2) {
+
+    const findLCS = (p1, p2) => {
+        if (p1 === -1 || p2 === -1) {return 0}
+
+        if (text1[p1] === text2[p2]) {
+            return findLCS(p1 - 1, p2 - 1) + 1
+        } else {
+            return Math.max(findLCS(p1 - 1, p2), findLCS(p1, p2 - 1))
+        }
+    }
+
+    return findLCS(text1.length - 1, text2.length - 1)
+}
+
+// Tabulation
+
+var longestCommonSubsequence = function(text1, text2) {
+    const dp = []
+
+    for (let i = 0; i <= text1.length; i++) {
+        const row = new Array(text2.length + 1).fill(0)
+        dp.push(row)
+    }
+
+    for (let i = 1; i <= text1.length; i++) {
+        for (let j = 1; j<= text2.length; j++) {
+            if (text1[i - 1] === text2[j - 1]) {
+                // 注意一下為什麼是 text1[i - 1] === text2[j - 1] 為什麼要 - 1，思考一下其實很直觀，但如何在思考解題的時候避免忘掉這裡我還不清楚
+
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            } else {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
+            }
+        }
+    }
+    return dp[text1.length][text2.length]
+}
+
