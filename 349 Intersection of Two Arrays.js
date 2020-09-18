@@ -38,3 +38,29 @@ const nums1 = [1,2,2,1]
 const nums2 = [2,2]
 
 console.log(intersection(nums1, nums2))
+
+// 第三次做
+
+var intersection = function(nums1, nums2) {
+    const cache = {}
+
+    for (let i = 0; i < nums1.length; i++) {
+        if (nums1[i] in cache === false) {
+            cache[nums1[i]] = false
+        }
+    }
+
+    for (let i = 0; i < nums2.length; i++) {
+        if (nums2[i] in cache) {
+            cache[nums2[i]] = true
+        }
+    }
+
+    for (let num in cache) {
+        if (cache[num] === false) {
+            delete cache[num]
+        }
+    }
+
+    return Object.keys(cache).map(str => Number(str))
+}
