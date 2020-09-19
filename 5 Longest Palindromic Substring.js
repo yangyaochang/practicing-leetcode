@@ -1,3 +1,9 @@
+/*
+要跟 516 Longest Palindromic Subsequence 做一下比較
+Subsequence 不需要連續 
+Substring 需要連續
+*/
+
 var longestPalindrome = function(s) {
     let longest = ''
 
@@ -61,3 +67,39 @@ var longestPalindrome = function(s) {
 const s = "babad"
 
 console.log(longestPalindrome(s))
+
+// 第三次做
+
+var longestPalindrome = function(s) {
+    const isPalindrome = (left, right) => {
+        if (s[left] === s[right]) {
+            while (left >= 0 && right < s.length) {
+                if (s[left] === s[right]) {
+                    left--
+                    right++
+                } else {break}
+            }
+            return [left + 1, right - 1]
+        } else {
+            return [left + 1, right - 1]
+        }
+    }
+
+    let maxLength = 0
+    let longest = ''
+
+    for (let i = 0; i < s.length; i++) {
+        const subStr1 = isPalindrome(i, i)
+        const subStr2 = isPalindrome(i, i + 1)
+
+        if (subStr1[1] - subStr1[0] + 1 > maxLength) {
+            maxLength = subStr1[1] - subStr1[0] + 1
+            longest = s.slice(subStr1[0], subStr1[1] + 1)
+        }
+        if (subStr2[1] - subStr2[0] + 1 > maxLength) {
+            maxLength = subStr2[1] - subStr2[0] + 1
+            longest = s.slice(subStr2[0], subStr2[1] + 1)
+        }
+    }
+    return longest
+}

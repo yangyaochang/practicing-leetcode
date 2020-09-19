@@ -1,5 +1,5 @@
 /*
-陷阱是 array 是 passed by reference，不要不小心一直用到同一個 array
+陷阱是 array 是 passed by reference，不要不小心一直用到同一個 array，要用到 Backtracking
 */
 
 var subsets = function(nums) {
@@ -100,3 +100,27 @@ var subsets = function(nums) {
 const nums = [1,2,3]
 
 console.log(subsets(nums))
+
+// 第五次做
+
+var subsets = function(nums) {
+    const list = []
+
+    const findSubsets = (path, start) => {
+        if (start === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        list.push([...path])
+
+        for (let i = start; i < nums.length; i++) {
+            path.push(nums[i])
+            findSubsets(path, i + 1)
+            path.pop()
+        }
+    }
+
+    findSubsets([], 0)
+    return list
+}

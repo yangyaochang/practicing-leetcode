@@ -49,3 +49,27 @@ var generateParenthesis = function(n) {
 const n = 3
 
 console.log(generateParenthesis(n))
+
+// 第三次做
+
+var generateParenthesis = function(n) {
+    const list = []
+
+    const generate = (str, open, close) => {
+        if (open === n && close === n) {
+            list.push(str)
+            return
+        }
+        if (open > n) {return}
+
+        if (open === close) {
+            generate(str + '(', open + 1, close)
+        } else if (open > close) {
+            generate(str + '(', open + 1, close)
+            generate(str + ')', open, close + 1)
+        }
+    }
+
+    generate('', 0, 0)
+    return list
+};

@@ -111,3 +111,26 @@ var combinationSum = function(candidates, target) {
     sum([], 0, 0)
     return list
 };
+
+// 第五次做
+
+var combinationSum = function(candidates, target) {
+    const list = []
+    
+    const add = (path, sum, start) => {
+        if (sum > target) {return}
+        if (sum === target) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = start; i < candidates.length; i++) {
+            path.push(candidates[i])
+            add(path, sum + candidates[i], i)
+            path.pop()
+        }
+    }
+
+    add([], 0, 0)
+    return list
+}

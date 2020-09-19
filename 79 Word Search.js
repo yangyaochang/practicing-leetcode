@@ -71,3 +71,31 @@ var exist = function(board, word) {
     }
     return false
 };
+
+// 第三次做 Base cases 略微不同
+
+var exist = function(board, word) {
+    const visited = new Set()
+
+    const find = (r, c, index) => {
+        const position = `${r}_${c}`
+        if (r < 0 || c < 0 || r >= board.length || c >= board[0].length) {return false}
+        if (visited.has(position)) {return false}
+        if (board[r][c] !== word[index]) {return false}
+        if (index === word.length - 1 && board[r][c] === word[index]) {return true}
+
+        visited.add(position)
+        let returnVal = find(r + 1, c, index + 1) || find(r - 1, c, index + 1) || find(r, c + 1, index + 1) || find(r, c - 1, index + 1)
+        visited.delete(position)
+        return returnVal
+    }
+
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            if (board[i][j] === word[0]) {
+                if (find(i, j, 0)) {return true}
+            }
+        }
+    }
+    return false
+}

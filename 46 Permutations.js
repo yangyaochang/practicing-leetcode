@@ -84,3 +84,29 @@ var permute = function(nums) {
     findPermutations([], used)
     return list
 }
+
+// 第四次做
+
+var permute = function(nums) {
+    const list = []
+    const used = new Array(nums.length).fill(false)
+
+    const append = (path, used) => {
+        if (path.length === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = 0; i < nums.length; i++) {
+            if (used[i] === true) {continue}
+            used[i] = true
+            path.push(nums[i])
+            append(path, used)
+            path.pop()
+            used[i] = false
+        }
+    }
+
+    append([], used)
+    return list
+}
