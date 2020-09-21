@@ -45,3 +45,26 @@ var binaryTreePaths = function(root) {
     dfs(root, '')
     return list
 }
+
+// 第三次做
+
+var binaryTreePaths = function(root) {
+    const list = []
+
+    const dfs = (current, path) => {
+        if (current === null) {return null}
+
+        if (path === '') {path += `${current.val}`} 
+        else {path += `->${current.val}`}
+    
+        let left = dfs(current.left, path)
+        let right = dfs(current.right, path)
+
+        if (left === null && right === null) {
+            list.push(path)
+        }
+    }
+
+    dfs(root, '')
+    return list
+}

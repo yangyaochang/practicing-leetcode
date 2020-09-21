@@ -70,3 +70,32 @@ const piles = [30,11,23,4,20]
 const H = 6
 
 console.log(minEatingSpeed(piles, H))
+
+/*
+第三次做
+Math.ceil() 無條件進位
+*/
+
+var minEatingSpeed = function(piles, H) {
+    const eatingTime = (speed) => {
+        let hour = 0
+
+        for (let i = 0; i < piles.length; i++) {
+            hour += Math.ceil(piles[i] / speed)
+        }
+        
+        return hour
+    }
+
+    let left = 1
+    let right = Math.max(...piles)
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2)
+
+        if (eatingTime(mid) > H) {left = mid + 1}
+        if (eatingTime(mid) < H) {right = mid - 1}
+        if (eatingTime(mid) === H) {right = mid - 1}
+    }
+    return left
+}
