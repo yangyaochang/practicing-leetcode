@@ -110,3 +110,29 @@ var permute = function(nums) {
     append([], used)
     return list
 }
+
+// 第五次做
+
+var permute = function(nums) {
+    const list = []
+    const used = new Array(nums.length).fill(false)
+
+    const findPermutations = (path) => {
+        if (path.length === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = 0; i < nums.length; i++) {
+            if (used[i] === true) {continue}
+            path.push(nums[i])
+            used[i] = true
+            findPermutations(path)
+            used[i] = false
+            path.pop()
+        }
+    }
+
+    findPermutations([])
+    return list
+}

@@ -80,3 +80,25 @@ const n = 4
 const k = 2
 
 console.log(combine(n, k))
+
+// 第四次做
+
+var combine = function(n, k) {
+    const list = []
+    const findCombinations = (path, start) => {
+        if (path.length === k) {
+            list.push([...path])
+            return
+        }
+        if (start === n + 1) {return}
+
+        for (let i = start; i <= n; i++) {
+            path.push(i)
+            findCombinations(path, i + 1)
+            path.pop()
+        }
+    }
+
+    findCombinations([], 1)
+    return list
+};

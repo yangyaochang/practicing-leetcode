@@ -124,3 +124,27 @@ var subsets = function(nums) {
     findSubsets([], 0)
     return list
 }
+
+// 第六次做
+
+var subsets = function(nums) {
+    const list = []
+
+    const findSubsets = (path, start) => {
+        if (start === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        list.push([...path])
+
+        for (let i = start; i < nums.length; i++) {
+            path.push(nums[i])
+            findSubsets(path, i + 1)
+            path.pop()
+        }
+    }
+
+    findSubsets([], 0)
+    return list
+}
