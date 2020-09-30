@@ -64,3 +64,29 @@ var intersection = function(nums1, nums2) {
 
     return Object.keys(cache).map(str => Number(str))
 }
+
+// 第四次做
+
+var intersection = function(nums1, nums2) {
+    const cache = {}
+
+    if (nums2.length < nums1.length) {
+        const temp = nums1
+        nums1 = nums2
+        nums2 = temp
+    }
+
+    nums1.forEach(i => {
+        if (i in cache === false) {cache[i] = false}
+    })
+
+    nums2.forEach(i => {
+        if (i in cache && cache[i] === false) {cache[i] = true}
+    })
+
+    for (let num in cache) {
+        if (!cache[num]) {delete cache[num]}
+    }
+
+    return Object.keys(cache).map(key => Number(key))
+}

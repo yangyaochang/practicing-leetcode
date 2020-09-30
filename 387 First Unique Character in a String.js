@@ -26,3 +26,19 @@ var firstUniqChar = function(s) {
         }
     }
 };
+
+// 第二次做
+
+var firstUniqChar = function(s) {
+    const frequency = {}
+
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] in frequency) {frequency[s[i]]++}
+        else {frequency[s[i]] = 1}
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        if (frequency[s[i]] === 1) {return i}
+    }
+    return -1
+}

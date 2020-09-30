@@ -5,6 +5,28 @@ Substring 需要連續
 */
 
 var longestPalindrome = function(s) {
+    const findPalindrome = (left, right) => {
+        while (left >= 0 && right < s.length && s[left] === s[right]) {
+            left--
+            right++
+        }
+        return s.slice(left + 1, right)
+    }
+
+    let longest = ''
+
+    for (let i = 0; i < s.length; i++) {
+        const palindrome1 = findPalindrome(i, i)
+        const palindrome2 = findPalindrome(i, i + 1)
+
+        longest = (palindrome1.length > longest.length) ? palindrome1 : longest
+        longest = (palindrome2.length > longest.length) ? palindrome2 : longest
+    }
+
+    return longest
+};
+
+var longestPalindrome = function(s) {
     let longest = ''
 
     for (let i = 0; i < s.length; i++) {

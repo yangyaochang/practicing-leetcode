@@ -58,3 +58,14 @@ var twoSum = function(nums, target) {
         else {cache[nums[i]] = i}
     }
 };
+
+// 第三次做
+
+var twoSum = function(nums, target) {
+    const cache = {}
+
+    for (let i = 0; i < nums.length; i++) {
+        if (target - nums[i] in cache) {return [cache[target - nums[i]], i]}
+        else {cache[nums[i]] = i}
+    }
+}

@@ -98,3 +98,20 @@ var maxProfit = function(prices) {
 
     return dp[prices.length - 1][0]
 }
+
+// 第五次做
+
+var maxProfit = function(prices) {
+    let dp_00 = 0
+    let dp_01 = - prices[0]
+    let dp_i0 = 0
+    let dp_i1 = 0
+
+    for (let i = 1; i < prices.length; i++) {
+        dp_i0 = Math.max(dp_00, dp_01 + prices[i])
+        dp_i1 = Math.max(dp_01, - prices[i])
+        dp_00 = dp_i0
+        dp_01 = dp_i1
+    }
+    return dp_i0
+}
