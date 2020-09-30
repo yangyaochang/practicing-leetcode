@@ -1,4 +1,41 @@
 /*
+Time Complexity: 
+為 n 叉樹的節點數，n 為 the size of candidates array
+樹高為 target / min value in candidates，考慮每次都加最小值
+節點數 = 1 + n + n ^ 2 + .... + n ^ (target / min)
+等比級數和公式 = a0(1 - r ^ (n)) / 1 - r
+所以節點數為 (1 - n ^ ((target / min) + 1)) / 1 - n
+
+Space Complexity: O(target / min)
+*/
+
+var combinationSum = function(candidates, target) {
+    const list = []
+
+    const findCombinations = (path, curSum, start) => {
+        if (curSum > target) {return}
+        if (curSum === target) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = start; i < candidates.length; i++) {
+            path.push(candidates[i])
+            findCombinations(path, curSum + candidates[i], i)
+            path.pop()
+        }
+    }
+
+    findCombinations([], 0, 0)
+    return list
+}
+
+const candidates = [2,3,6,7]
+const target = 7
+
+console.log(combinationSum(candidates, target))
+
+/*
 有點像 coin sum，如果順序不重要，可以用選擇要不要用來縮小 problem size
 */
 

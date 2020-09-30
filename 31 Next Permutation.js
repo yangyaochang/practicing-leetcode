@@ -10,6 +10,7 @@ var nextPermutation = function(nums) {
         // 注意元素當中可能有重複，要考慮相等狀況
         index--
     }
+    // Fint the item before the strictly decreasing section
 
     if (index === 0) {return nums.reverse()}
 
