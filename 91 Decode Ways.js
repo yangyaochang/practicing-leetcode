@@ -34,3 +34,30 @@ var numDecodings = function(s) {
 const s = "226"
 
 console.log(numDecodings(s))
+
+// 第二次做
+
+var numDecodings = function(s) {
+    const cache = {}
+
+    const decode = (str) => {
+        if (str.length === 0) {return 1}
+        if (str in cache) {return cache[str]}
+
+        let val1 = 0
+        let val2 = 0
+
+        if (str[0] !== '0') {
+            val1 = decode(str.slice(1))
+        }
+        const num = Number(str.slice(0, 2))
+        if (str[0] !== '0' && num <= 26 && str.length >= 2) {
+            val2 = decode(str.slice(2))
+        }
+
+        cache[str] = val1 + val2
+        return cache[str]
+    }
+
+    return decode(s)
+}

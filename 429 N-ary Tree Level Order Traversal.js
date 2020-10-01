@@ -1,13 +1,33 @@
 /*
-Time Complexity: O(n)
-Space Complexity: O(n) => 我覺得 n 是單一 level 最多的 node 數目
+Instantiate scope variable list[] to store node's value
+Implement BFS wiht a queue and a while loop
+Pust the root node in queue
+While queue.length > 0, visite the node and push it's children to queue
+return list
 
-但官方答案是：
-At most, the queue will have 2 layers of the tree on it at any given time. 
-In the worst case, this is all of the nodes. In the best case, it is just 1 node 
-(if we have a tree that is equivalent to a linked list).
-Space Complexity: O(n)
+Time Complexity: O(n)
+Space Complexity: O(n) 
 */
+
+var levelOrder = function(root) {
+    const queue = []
+    const list = []
+
+    if (root === null) {return list}
+
+    queue.push([root, 0])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (level === list.length) {list.push([])}
+        list[level].push(current.val)
+
+        const children = current.children
+        children.forEach(child => {queue.push([child, level + 1])})
+    }
+    return list
+}
 
 var levelOrder = function(root) {
     if (root === null) {return []}
