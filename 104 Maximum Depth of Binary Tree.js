@@ -56,3 +56,18 @@ var maxDepth = function(root) {
     }
     return maxDepth
 }
+
+var maxDepth = function(root) {
+    const queue = []
+
+    if (root === null) {return 0}
+    queue.push([root, 1])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (current.left) {queue.push([current.left, level + 1])}
+        if (current.right) {queue.push([current.right, level + 1])}
+        if (current.left === null && current.right === null && queue.length === 0) {return level}
+    }
+}

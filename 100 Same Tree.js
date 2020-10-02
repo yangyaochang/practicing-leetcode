@@ -26,3 +26,16 @@ var isSameTree = function(p, q) {
     }
     return dfs(p, q)
 };
+
+// 第三次做
+
+var isSameTree = function(p, q) {
+    const dfs = (cur1, cur2) => {
+        if (cur1 === null && cur2 === null) {return true}
+        if (cur1 === null || cur2 === null || cur1.val !== cur2.val) {return false}
+        
+        return dfs(cur1.left, cur2.left) && dfs(cur1.right, cur2.right)
+    }
+
+    return dfs(p, q)
+}

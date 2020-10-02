@@ -21,3 +21,22 @@ var minDepth = function(root) {
     dfs(root, 1)
     return minDepth
 };
+
+// 第二次做
+
+var minDepth = function(root) {
+    const queue = []
+
+    if (root === null) {return 0}
+
+    queue.push([root, 1])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (current.left === null && current.right === null) {return level}
+
+        if (current.left) {queue.push([current.left, level + 1])}
+        if (current.right) {queue.push([current.right, level + 1])}
+    }
+}

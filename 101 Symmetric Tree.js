@@ -31,3 +31,15 @@ var isSymmetric = function(root) {
     
     return dfs(root, root)
 };
+
+// 第三次做
+
+var isSymmetric = function(root) {
+    const dfs = (cur1, cur2) => {
+        if (cur1 === null && cur2 === null) {return true}
+        if (cur1 === null || cur2 === null || cur1.val !== cur2.val) {return false}
+
+        return dfs(cur1.left, cur2.right) && dfs(cur1.right, cur2.left)
+    }
+    return dfs(root, root)
+}
