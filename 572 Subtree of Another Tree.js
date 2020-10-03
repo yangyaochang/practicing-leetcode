@@ -62,3 +62,31 @@ var isSubtree = function(s, t) {
     findRoot(s)
     return finished
 }
+
+// 第三次做
+
+var isSubtree = function(s, t) {
+    const queue = []
+
+    queue.push(s)
+
+    while (queue.length > 0) {
+        const current = queue.shift()
+
+        if (current.val === t.val) {
+            if (dfs(current, t)) {return true}
+        }
+
+        if (current.left) {queue.push(current.left)}
+        if (current.right) {queue.push(current.right)}
+    }
+
+    return false
+
+    function dfs(c1, c2) {
+        if (c1 === null && c2 === null) {return true}
+        if (c1 === null || c2 === null || c1.val !== c2.val) {return false}
+
+        return dfs(c1.left, c2.left) && dfs(c1.right, c2.right)
+    }
+}

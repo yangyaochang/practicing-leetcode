@@ -21,3 +21,24 @@ var levelOrder = function(root) {
     
     return list
 };
+
+// 第二次做
+
+var levelOrder = function(root) {
+    const queue = []
+    const list = []
+
+    if (root === null) {return list}
+    queue.push([root, 0])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (list.length === level) {list.push([])}
+        list[level].push(current.val)
+
+        if (current.left) {queue.push([current.left, level + 1])}
+        if (current.right) {queue.push([current.right, level + 1])}
+    }
+    return list
+}

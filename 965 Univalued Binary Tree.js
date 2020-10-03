@@ -32,3 +32,23 @@ var isUnivalTree = function(root) {
     dfs(root, null)
     return isUni
 };
+
+// BFS 作法
+
+var isUnivalTree = function(root) {
+    const queue = []
+
+    queue.push(root)
+    let pre = null
+
+    while (queue.length > 0) {
+        const current = queue.shift()
+
+        if (pre !== null && pre.val !== current.val) {return false} 
+        pre = current
+
+        if (current.left) {queue.push(current.left)}
+        if (current.right) {queue.push(current.right)}
+    }
+    return true
+}

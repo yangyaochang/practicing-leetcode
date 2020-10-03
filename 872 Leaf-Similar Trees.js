@@ -54,3 +54,34 @@ var leafSimilar = function(root1, root2) {
         return list
     }
 }
+
+// 第三次做
+
+var leafSimilar = function(root1, root2) {
+
+    const getLeaves = (root) => {
+        const leaves = []
+
+        const dfs = (current) => {
+            if (current === null) {return null}
+
+            let left = dfs(current.left)
+            let right = dfs(current.right)
+
+            if (left === null && right === null) {leaves.push(current.val)}
+        }
+
+        dfs(root)
+        return leaves        
+    }
+
+    let leaves1 = getLeaves(root1)
+    let leaves2 = getLeaves(root2)
+
+    if (leaves1.length !== leaves2.length) {return false}
+
+    for (let i = 0; i < leaves1.length; i++) {
+        if (leaves1[i] !== leaves2[i]) {return false}
+    }
+    return true
+}

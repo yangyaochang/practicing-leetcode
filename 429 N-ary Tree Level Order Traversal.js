@@ -50,3 +50,21 @@ var levelOrder = function(root) {
     }
     return list
 };
+
+var levelOrder = function(root) {
+    const queue = []
+    const list = []
+
+    if (root === null) {return list}
+    queue.push([root, 0])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (list.length === level) {list.push([])}
+        list[level].push(current.val)
+
+        current.children.forEach(node => {queue.push([node, level + 1])})
+    }
+    return list
+}
