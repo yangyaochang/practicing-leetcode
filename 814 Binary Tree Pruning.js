@@ -1,7 +1,26 @@
 /*
 Time Complexity: O(n)
 Space Complexity: O(n)
+
+從底層檢查上來，若是 leaf 且值為 0，則切掉 return null
 */
+
+var pruneTree = function(root) {
+    const cut = (cur) => {
+        if (cur === null) {return null}
+
+        cur.left = cut(cur.left)
+        cur.right = cut(cur.right)
+
+        if (cur.left === null && cur.right === null && cur.val === 0) {
+            return null
+        } else {
+            return cur
+        }
+    }
+
+    return cut(root)
+}
 
 var pruneTree = function(root) {
     if (root === null) {return null}

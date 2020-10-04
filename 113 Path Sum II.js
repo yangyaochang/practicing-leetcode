@@ -49,3 +49,25 @@ var pathSum = function(root, sum) {
     dfs(root, [])
     return list
 };
+
+var pathSum = function(root, sum) {
+    const list = []
+
+    const add = (path, curSum, cur) => {
+        if (cur === null) {return null}
+
+        curSum += cur.val
+        path.push(cur.val)
+        add(path, curSum, cur.left)
+        add(path, curSum, cur.right)
+        
+        if (cur.left === null && cur.right === null && curSum === sum) {
+            list.push([...path])
+        }
+
+        path.pop()
+    }
+
+    add([], 0, root)
+    return list
+}

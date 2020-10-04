@@ -31,3 +31,22 @@ var removeLeafNodes = function(root, target) {
     }
     return dfs(root)
 };
+
+// 第三次做
+
+var removeLeafNodes = function(root, target) {
+    const remove = (cur) => {
+        if (cur === null) {return null}
+
+        cur.left = remove(cur.left)
+        cur.right = remove(cur.right)
+
+        if (cur.left === null && cur.right === null && cur.val === target) {
+            return null
+        } else {
+            return cur
+        }
+    }
+
+    return remove(root)
+}

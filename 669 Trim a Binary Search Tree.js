@@ -59,3 +59,20 @@ var trimBST = function(root, L, R) {
 
     return dfs(root)
 };
+
+// 第三次做
+
+var trimBST = function(root, L, R) {
+    const trim = (cur) => {
+        if (cur === null) {return null}
+
+        cur.left = trim(cur.left)
+        cur.right = trim(cur.right)
+
+        if (cur.val < L) {return cur.right}
+        if (cur.val > R) {return cur.left}
+        return cur
+    }
+
+    return trim(root)
+};
