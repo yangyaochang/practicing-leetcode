@@ -66,3 +66,36 @@ var pathSum = function(root, sum) {
         return num
     }
 };
+
+/*
+BFS 以每一個 node 為新的 root，perform DFS 計算總和 = sum 的路徑數
+*/
+
+var pathSum = function(root, sum) {
+    const queue = []
+    let count = 0
+
+    if (root === null) {return count}
+    queue.push(root)
+
+    while (queue.length > 0) {
+        const current = queue.shift()
+
+        dfs(current, 0)
+
+        if (current.left) {queue.push(current.left)}
+        if (current.right) {queue.push(current.right)}
+    }
+
+    return count
+
+    function dfs(current, curSum) {
+        if (current === null) {return}
+
+        curSum += current.val
+        if (curSum === sum) {count++}
+
+        dfs(current.left, curSum)
+        dfs(current.right, curSum)
+    }
+};
