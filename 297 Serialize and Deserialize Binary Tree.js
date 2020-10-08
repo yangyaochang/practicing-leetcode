@@ -121,3 +121,61 @@ var deserialize = function(data) {
     }
     return root
 };
+
+// 第三次做
+
+var serialize = function(root) {
+    const queue = []
+    const list = []
+
+    queue.push(root)
+
+    while (queue.length > 0) {
+        const cur = queue.shift()
+
+        if (cur) {list.push(cur.val.toString())}
+        else {list.push('null')}
+
+        if (cur) {
+            queue.push(cur.left)
+            queue.push(cur.right)
+        }
+    }
+
+    let end = list.length - 1
+
+    while (list[end] === 'null') {
+        list.pop()
+    }
+    return list.join(',')
+}
+
+var deserialize = function(data) {
+    if (data === '') {return null}
+    // 上面這個 edge case 之前不需要處理，我想可能跟我每次處理 data 的方式不一樣有關。重點還是下面重新生成一棵樹的邏輯
+
+    data = data.split(',').map(num => {
+        if (num === 'null') {return null}
+        else {return Number(num)}
+    })
+
+    const root = new TreeNode(data[0])
+    const queue = []
+    queue.push(root)
+
+    for (let i = 1; i < data.length ; i += 2) {
+        const parent = queue.shift()
+
+        if (data[i] !== null) {
+            parent.left = new TreeNode(data[i])
+            queue.push(parent.left)
+        }
+
+        if (i + 1 < data.length && data[i + 1] !== null) {
+            parent.right = new TreeNode(data[i + 1])
+            queue.push(parent.right)
+        }
+    }
+
+    return root
+}

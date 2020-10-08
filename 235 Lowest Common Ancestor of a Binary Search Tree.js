@@ -97,3 +97,24 @@ var lowestCommonAncestor = function(root, p, q) {
     dfs(root)
     return LCA
 }
+
+// BFS 作法
+
+var lowestCommonAncestor = function(root, p, q) {
+    const queue = []
+
+    let right = (p.val > q.val) ? p.val : q.val
+    let left = (p.val > q.val) ? q.val : p.val
+
+    queue.push(root)
+
+    while (queue.length > 0) {
+        const cur = queue.shift()
+
+        if (right > cur.val && cur.val > left) {return cur}
+        if (right === cur.val || left === cur.val) {return cur}
+
+        if (cur.left) {queue.push(cur.left)}
+        if (cur.right) {queue.push(cur.right)}
+    }
+};

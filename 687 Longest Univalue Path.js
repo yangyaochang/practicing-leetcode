@@ -60,3 +60,33 @@ var longestUnivaluePath = function(root) {
     dfs(root)
     return maxLength
 };
+
+// 第三次做
+
+var longestUnivaluePath = function(root) {
+    let longest = 0
+
+    const dfs = (cur) => {
+        if (cur === null) {return [null, 0]}
+
+        let left = dfs(cur.left)
+        let right = dfs(cur.right)
+
+        if (left[0] === cur.val && right[0] === cur.val) {
+            longest = Math.max(longest, left[1] + right[1])
+            return [cur.val, Math.max(left[1], right[1]) + 1]
+        }
+        if (left[0] === cur.val) {
+            longest = Math.max(longest, left[1])
+            return [cur.val, left[1] + 1]
+        }
+        if (right[0] === cur.val) {
+            longest = Math.max(longest, right[1])
+            return [cur.val, right[1] + 1]
+        }
+        return [cur.val, 1]
+    }
+
+    dfs(root)
+    return longest
+}

@@ -1,4 +1,37 @@
 var findFrequentTreeSum = function(root) {
+    const frequency = {}
+
+    const dfs = (cur) => {
+        if (cur === null) {return 0}
+
+        let left = dfs(cur.left)
+        let right = dfs(cur.right)
+        const sum = left + right + cur.val
+
+        if (sum in frequency) {frequency[sum]++}
+        else {frequency[sum] = 1}
+        // 忘記 return sum
+        return sum
+    }
+
+    dfs(root)
+
+    let maxFrequency = 0
+    let max = []
+
+    for (let sum in frequency) {
+        if (frequency[sum] > maxFrequency) {
+            maxFrequency = frequency[sum]
+            max = [sum]
+        } else if (frequency[sum] === maxFrequency) {
+            max.push(sum)
+        }
+    }
+    
+    return max
+};
+
+var findFrequentTreeSum = function(root) {
     let cache = {}
     let list = []
     
