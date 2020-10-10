@@ -60,3 +60,50 @@ var majorityElement = function(nums) {
 const nums = [2,2,1,1,1,2,2]
 
 console.log(majorityElement(nums))
+
+// 用 sort
+
+var majorityElement = function(nums) {
+    const quicksort = (arr) => {
+        const divide = (s, e) => {
+            if (s >= e) {return}
+
+            let m = s
+            for (let i = s; i < e; i++) {
+                if (arr[i] < arr[e]) {
+                    [arr[i], arr[m]] = [arr[m], arr[i]]
+                    m++
+                }
+            }
+            [arr[e], arr[m]] = [arr[m], arr[e]]
+
+            divide(s, m - 1)
+            divide(m + 1, e)
+        }
+        divide(0, arr.length - 1)
+        return arr
+    }
+
+    nums = quicksort(nums)
+    return nums[Math.floor(nums.length / 2)]
+}
+
+// 用 frequency count
+
+var majorityElement = function(nums) {
+    const majority = Math.floor(nums.length / 2) + 1
+    const frequency = {}
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] in frequency) {
+            frequency[nums[i]]++
+        } else {
+            frequency[nums[i]] = 1
+        }
+
+        if (frequency[nums[i]] === majority) {
+            return nums[i]
+        }
+    }
+}
+

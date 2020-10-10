@@ -83,3 +83,28 @@ var findMin = function(nums) {
 const nums = [1,3,5]
 
 console.log(findMin(nums))
+
+// 第四次做
+
+var findMin = function(nums) {
+    let left = 0
+    let right = nums.length - 1
+
+    while (nums[left] >= nums[right]) {
+        while (nums[left] === nums[right]) {
+            if (left === right) {return nums[left]}
+            left++
+        }
+
+        if (nums[right] >= nums[left]) {return nums[left]}
+        const mid = Math.floor((left + right) / 2)
+
+        if (nums[mid] >= nums[left]) {
+            left = mid + 1
+        } else if (nums[right] >= nums[mid]) {
+            right = mid
+        }
+    }
+
+    return nums[left]
+}

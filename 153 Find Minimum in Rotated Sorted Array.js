@@ -156,3 +156,26 @@ var findMin = function(nums) {
 const nums = [3,4,5,1,2] 
 
 console.log(findMin(nums))
+
+/*
+左或右邊 sorted 包含只剩下一個 element，這時候 nums[mid] = nums[left] 或 nums[right]，所以等號要考慮進去
+
+如果是左邊 sorted，最小值會在 mid 右邊不包含 mid
+如果是右邊 sorted，最小值會在 mid 左邊包含 mid
+*/
+
+var findMin = function(nums) {
+    let left = 0
+    let right = nums.length - 1
+
+    while (nums[left] > nums[right]) {
+        const mid = Math.floor((left + right) / 2)
+
+        if (nums[mid] >= nums[left]) {
+            left = mid + 1
+        } else if (nums[right] >= nums[mid]) {
+            right = mid
+        }
+    }
+    return nums[left]
+}
