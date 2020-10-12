@@ -43,3 +43,22 @@ var kthSmallest = function(root, k) {
     dfs(root)
     return target
 };
+
+var kthSmallest = function(root, k) {
+    let target = null
+
+    const inorder = (cur) => {
+        if (cur === null) {return}
+        if (target !== null) {return}
+
+        inorder(cur.left)
+        if (k > 1) {k--}
+        else if (k === 1 && target === null) {
+            target = cur.val
+        }
+        inorder(cur.right)
+    }
+
+    inorder(root)
+    return target
+};

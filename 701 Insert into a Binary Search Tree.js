@@ -44,3 +44,27 @@ var insertIntoBST = function(root, val) {
         }
     }
 };
+
+var insertIntoBST = function(root, val) {
+    let cur = root
+    
+    if (cur === null) {return new TreeNode(val)}
+
+    while (cur) {
+        if (cur.val > val) {
+            if (cur.left) {
+                cur = cur.left
+            } else {
+                cur.left = new TreeNode(val)
+                return root
+            }
+        } else if (cur.val < val) {
+            if (cur.right) {
+                cur = cur.right
+            } else {
+                cur.right = new TreeNode(val)
+                return root
+            }
+        }
+    }
+}

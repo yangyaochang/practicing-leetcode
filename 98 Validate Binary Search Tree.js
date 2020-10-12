@@ -42,3 +42,16 @@ var isValidBST = function(root) {
     
     return validate(root, null, null)
 }
+
+var isValidBST = function(root) {
+
+    const validate = (current, upperLimit, lowerLimit) => {
+        if (current === null) {return true}
+        if (upperLimit !== undefined && current.val > upperLimit) {return false}
+        if (lowerLimit !== undefined && current.val < lowerLimit) {return false}
+        
+        return validate(current.left, current.val, lowerLimit) && validate(current.right, upperLimit, current.val)
+    }
+
+    return validate(root, undefined, undefined)
+}

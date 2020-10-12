@@ -45,3 +45,24 @@ var getMinimumDifference = function(root) {
     dfs(root, null, null)
     return minDiff
 }
+
+// 利用 inorder traversal 按照順序走訪每一個值
+
+var getMinimumDifference = function(root) {
+    if (root === null) {return 0}
+    let pre = null
+    let minDiff = Infinity
+
+    const dfs = (cur) => {
+        if (cur === null) {return}
+
+        dfs(cur.left)
+        if (pre !== null) {
+            minDiff = Math.min(minDiff, Math.abs(pre - cur.val))
+        }
+        pre = cur.val
+        dfs(cur.right)
+    }
+    dfs(root)
+    return minDiff
+};

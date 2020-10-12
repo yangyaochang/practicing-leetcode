@@ -30,3 +30,31 @@ var recoverTree = function(root) {
     recover(root)
     return root
 };
+
+var recoverTree = function(root) {
+    const list = []
+
+    const dfs = (cur) => {
+        if (cur === null) {return}
+
+        dfs(cur.left)
+        list.push(cur.val)
+        dfs(cur.right)
+    }
+
+    dfs(root)
+    list.sort((a, b) => a - b)
+    let index = 0
+
+    const recover = (cur) => {
+        if (cur === null) {return}
+
+        recover(cur.left)
+        cur.val = list[index]
+        index++
+        recover(cur.right)
+    }
+
+    recover(root)
+    return root
+}
