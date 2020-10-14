@@ -49,3 +49,23 @@ var isPalindrome = function(s) {
 
     return true
 };
+
+// 第三次做
+
+var isPalindrome = function(s) {
+    s = s.match(/[a-zA-Z0-9]/g)
+    
+    if (s === null) {return true}
+    
+    console.log(s)
+        
+    let left = 0
+    let right = s.length - 1
+
+    while (left < right) {
+        if (s[left].toLowerCase() !== s[right].toLowerCase()) {return false}
+        left++
+        right--
+    }
+    return true
+};

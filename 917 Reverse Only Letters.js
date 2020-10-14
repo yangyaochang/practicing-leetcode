@@ -29,3 +29,29 @@ var reverseOnlyLetters = function(S) {
 const S = "a-bC-dEf-ghIj"
 
 console.log(reverseOnlyLetters(S))
+
+// 第二次做
+
+var reverseOnlyLetters = function(S) {
+    let left = 0
+    let right = S.length - 1
+
+    S = S.split('')
+
+    while (left < right) {
+        if (/[a-zA-Z]/.test(S[left]) && /[a-zA-Z]/.test(S[right])) {
+            [S[left], S[right]] = [S[right], S[left]]
+            left++
+            right--
+        } else if (!/[a-zA-Z]/.test(S[left]) && /[a-zA-Z]/.test(S[right])) {
+            left++
+        } else if (/[a-zA-Z]/.test(S[left]) && !/[a-zA-Z]/.test(S[right])) {
+            right--
+        } else if (!/[a-zA-Z]/.test(S[left]) && !/[a-zA-Z]/.test(S[right])) {
+            left++
+            right--
+        }
+    }
+
+    return S.join('')
+}
