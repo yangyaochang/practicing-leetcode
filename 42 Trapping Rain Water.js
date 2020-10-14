@@ -71,3 +71,28 @@ var trap = function(height) {
 const height = [2,0,2]
 
 console.log(trap(height))
+
+var trap = function(height) {
+    const left = []
+    const right = []
+    let maxToLeft = 0
+    let maxToRight = 0
+    let traped = 0
+
+    for (let i = 0; i < height.length; i++) {
+        left.push(maxToLeft)
+        maxToLeft = Math.max(maxToLeft, height[i])
+    }
+
+    for (let i = height.length - 1; i >= 0; i--) {
+        right.push(maxToRight)
+        maxToRight = Math.max(maxToRight, height[i])
+    }
+    right.reverse()
+
+    for (let i = 0; i < height.length; i++) {
+        let vol = Math.min(left[i], right[i]) - height[i]
+        traped += (vol > 0) ? vol : 0 
+    }
+    return traped
+}

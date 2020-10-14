@@ -85,3 +85,42 @@ var deleteNode = function(root, key) {
 
     return dfs(root)
 };
+
+// 先判斷在走訪，壓縮 time complexity
+
+var deleteNode = function(root, key) {
+    const dfs = (cur) => {
+        if (cur === null) {return null}
+
+        // 不需要 traverse 兩個 children，根據 key 的大小決定 traverse 的方向
+        if (cur.val > key) {
+            cur.left = dfs(cur.left)
+        }
+        if (cur.val < key) {
+            cur.right = dfs(cur.right)
+        }
+
+        if (cur.val === key) {
+            // 找到目標 node 之後重構 BST
+            // 若 key 沒有 children
+            if (cur.left === null && cur.right === null) {return null}
+            // 若 key 沒有 left child
+            if (cur.left === null) {return cur.right}
+            // 若 key 沒有 right child
+            if (cur.right === null) {return cur.left}
+
+            // 若 key 有 left 與 right child
+            // 將 right child 接到 left subtree 的最大值的 right child
+            // 或將 left child 接到 right subtree 的最小值的 left child
+            let current = cur.left
+            while (current.right !== null) {
+                current = current.right
+            }
+            current.right = cur.right
+            return cur.left
+        }
+        return cur
+    }
+
+    return dfs(root)
+}

@@ -79,3 +79,35 @@ var findMode = function(root) {
 
     return list
 };
+
+// 用 for...in loop iterate through object
+
+var findMode = function(root) {
+    const frequency = {}
+
+    const dfs = (cur) => {
+        if (cur === null) {return}
+
+        dfs(cur.left)
+        if (cur.val in frequency) {
+            frequency[cur.val]++
+        } else {
+            frequency[cur.val] = 1
+        }
+        dfs(cur.right)
+    }
+
+    dfs(root)
+    let maxFrequency = 0
+    let list = []
+    
+    for (let val in frequency) {
+        if (frequency[val] > maxFrequency) {
+            maxFrequency = frequency[val]
+            list = [val]
+        } else if (frequency[val] === maxFrequency) {
+            list.push(val)
+        }
+    }
+    return list
+}
