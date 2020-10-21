@@ -72,3 +72,23 @@ var cloneGraph = function(node) {
 
     return clone(node)
 }
+
+// 第四次做
+
+var cloneGraph = function(node) {
+    const visited = new Map()
+
+    const dfs = (cur) => {
+        if (visited.has(cur)) {return visited.get(cur)}
+        if (cur === null) {return null}
+
+        const node = new Node(cur.val)
+        visited.set(cur, node)
+
+        for (let i = 0; i < cur.neighbors.length; i++) {
+            node.neighbors.push(dfs(cur.neighbors[i]))
+        }
+        return node
+    }
+    return dfs(node)
+}
