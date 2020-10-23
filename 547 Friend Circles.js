@@ -99,3 +99,43 @@ var findCircleNum = function(M) {
         if (visited.size === M.length) {return num}
     }
 }
+
+var findCircleNum = function(M) {
+    const adjacentList = toAdjacentList(M)
+    const visited = new Set()
+    let numOfCircle = 0
+
+    for (let i = 0; i < M.length; i++) {
+        if (visited.size === M.length) {return numOfCircle}
+        if (!visited.has(i)) {
+            numOfCircle++
+            dfs(i)
+        }
+    }
+    
+    return numOfCircle
+
+    function toAdjacentList(arr) {
+        const adjacentList = {}
+
+        for (let i = 0; i < arr.length; i++) {
+            adjacentList[i] = []
+            for (let j = 0; j < arr[i].length; j++) {
+                if (M[i][j] === 1 && i !== j) {
+                    adjacentList[i].push(j)
+                }
+            }
+        }
+        return adjacentList
+    }
+
+    function dfs(student) {
+        if (visited.has(student)) {return}
+
+        visited.add(student)
+        const friends = adjacentList[student]
+        for (let i = 0; i < friends.length; i++) {
+            dfs(friends[i])
+        }
+    }
+}

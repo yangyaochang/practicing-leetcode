@@ -67,3 +67,23 @@ var copyRandomList = function(head) {
 
     return copy(head)
 };
+
+// 第四次做
+
+var copyRandomList = function(head) {
+    const visited = new Map()
+
+    const dfs = (cur) => {
+        if (cur === null) {return null}
+        if (visited.has(cur)) {return visited.get(cur)} 
+
+        const node = new Node(cur.val)
+        visited.set(cur, node)
+
+        node.next = dfs(cur.next)
+        node.random = dfs(cur.random)
+        return node
+    }
+
+    return dfs(head)
+}
