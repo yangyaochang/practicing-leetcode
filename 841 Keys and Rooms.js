@@ -49,3 +49,21 @@ var canVisitAllRooms = function(rooms) {
     dfs(0)
     return visited.size === rooms.length
 };
+
+var canVisitAllRooms = function(rooms) {
+    const visited = new Set()
+
+    const dfs = (cur) => {
+        if (visited.has(cur)) {return}
+
+        visited.add(cur)
+
+        const nextRooms = rooms[cur]
+        for (let i = 0; i < nextRooms.length; i++) {
+            dfs(nextRooms[i])
+        }
+    }
+    dfs(0)
+
+    return visited.size === rooms.length
+}
