@@ -86,3 +86,26 @@ var letterCasePermutation = function(S) {
     construct([], 0)
     return list
 };
+
+// 第四次做
+
+var letterCasePermutation = function(S) {
+    const list = []
+
+    const findPermutations = (path, index) => {
+        if (index === S.length) {
+            list.push(path)
+            return
+        }
+
+        if (/[a-zA-Z]/.test(S[index])) {
+            findPermutations(path + S[index].toUpperCase(), index + 1)
+            findPermutations(path + S[index].toLowerCase(), index + 1)
+        } else {
+            findPermutations(path + S[index], index + 1)
+        }
+    }
+
+    findPermutations('', 0)
+    return list
+}

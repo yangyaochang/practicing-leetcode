@@ -85,3 +85,40 @@ var leafSimilar = function(root1, root2) {
     }
     return true
 }
+
+// 第四次做
+
+var leafSimilar = function(root1, root2) {
+    const getLeaves = (root) => {
+        const leaves = []
+
+        const dfs = (current) => {
+            if (current === null) {return null}
+
+            let left = dfs(current.left)
+            let right = dfs(current.right)
+
+            if (left === null && right === null) {leaves.push(current.val)}
+            return current.val
+        }
+
+        dfs(root)
+        return leaves
+    }
+
+    const leaves1 = getLeaves(root1)
+    const leaves2 = getLeaves(root2)
+    let p1 = 0
+    let p2 = 0
+
+    while (p1 < leaves1.length && p2 < leaves2.length) {
+        if (leaves1[p1] !== leaves2[p2]) {
+            return false
+        }
+        else {
+            p1++
+            p2++
+        }
+    }
+    return p1 === leaves1.length && p2 === leaves2.length
+}

@@ -27,3 +27,20 @@ var inorderTraversal = function(root) {
     inorder(root)
     return list
 }
+
+// 第二次做
+
+var inorderTraversal = function(root) {
+    const result = [] 
+
+    const dfs = (current) => {
+        if (current === null) {return}
+
+        dfs(current.left)
+        result.push(current.val)
+        dfs(current.right)
+    }
+
+    dfs(root)
+    return result
+}

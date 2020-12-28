@@ -90,3 +90,29 @@ var isSubtree = function(s, t) {
         return dfs(c1.left, c2.left) && dfs(c1.right, c2.right)
     }
 }
+
+var isSubtree = function(s, t) {
+    const queue = []
+
+    queue.push(s)
+
+    while (queue.length > 0) {
+        const current = queue.shift()
+
+        if (current.val === t.val) {
+            if (dfs(current, t)) {return true}
+        }
+
+        if (current.left) {queue.push(current.left)}
+        if (current.right) {queue.push(current.right)}
+    }
+
+    return false
+
+    function dfs(p, q) {
+        if (p === null && q === null) {return true}
+        if (p === null || q === null || p.val !== q.val) {return false}
+
+        return dfs(p.left, q.left) && dfs(p.right, q.right)
+    }
+}

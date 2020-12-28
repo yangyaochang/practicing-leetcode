@@ -52,3 +52,16 @@ var isUnivalTree = function(root) {
     }
     return true
 }
+
+// 第四次做
+
+var isUnivalTree = function(root) {
+    const dfs = (current, parentVal) => {
+        if (current === null) {return true}
+        if (current.val !== parentVal && current !== root) {return false}
+        
+        return dfs(current.left, current.val) && dfs(current.right, current.val)
+    }
+
+    return dfs(root)
+};

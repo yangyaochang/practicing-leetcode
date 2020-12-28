@@ -43,3 +43,16 @@ var isSymmetric = function(root) {
     }
     return dfs(root, root)
 }
+
+// 第四次做
+
+var isSymmetric = function(root) {
+    const dfs = (p , q) => {
+        if (p === null && q === null) {return true}
+        if (p === null || q === null || p.val !== q.val) {return false}
+
+        return dfs(p.left, q.right) && dfs(p.right, q.left)
+    }
+
+    return dfs(root, root)
+}

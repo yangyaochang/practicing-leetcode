@@ -86,3 +86,32 @@ var permuteUnique = function(nums) {
     findPermutations([], used)
     return list
 };
+
+// 第四次做
+
+var permuteUnique = function(nums) {
+    const list = []
+    const used = new Array(nums.length).fill(false)
+    nums.sort((a, b) => a - b)
+    
+    const findPermutations = (path) => {
+        if (path.length === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = 0; i < nums.length; i++) {
+            if (i > 0 && used[i - 1] === false && nums[i] === nums[i - 1]) {continue}
+            if (used[i]) {continue}
+
+            path.push(nums[i])
+            used[i] = true
+            findPermutations(path)
+            path.pop()
+            used[i] = false
+        }
+    }
+
+    findPermutations([])
+    return list
+}

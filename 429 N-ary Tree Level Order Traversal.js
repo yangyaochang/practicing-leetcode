@@ -68,3 +68,52 @@ var levelOrder = function(root) {
     }
     return list
 }
+
+// 第六次做
+
+var levelOrder = function(root) {
+    const list = []
+    const queue = []
+
+    if (root === null) {return list}
+    queue.push([root, 0])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (list.length === level) {
+            list.push([current.val])
+        } else {
+            list[level].push(current.val)
+        }
+
+        current.children.forEach(child => {
+            if (child) {queue.push([child, level + 1])}
+        })
+    }
+
+    return list
+}
+
+// 第七次做
+
+var levelOrder = function(root) {
+    const queue = []
+    const list = []
+
+    if (root === null) {return []}
+    queue.push([root, 1])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (level > list.length) {list.push([current.val])}
+        else {list[level - 1].push(current.val)}
+
+        current.children.forEach(child => {
+            queue.push([child, level + 1])
+        })
+    }
+
+    return list
+}

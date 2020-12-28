@@ -39,3 +39,18 @@ var isSameTree = function(p, q) {
 
     return dfs(p, q)
 }
+
+// 第四次做
+// Base case 有三個，兩個都為 null，其中一個為 null，兩者值不一樣
+// Recursive case 就是當兩者值一樣，繼續 traverse
+
+var isSameTree = function(p, q) {
+    const dfs = (current_p, current_q) => {
+        if (current_p === null && current_q === null) {return true}
+        if (current_p.val !== current_q.val || current_p === null || current_q === null) {return false}
+
+        return dfs(current_p.left, current_q.left) && dfs(current_p.right, current_q.right)
+    }
+
+    return dfs(p, q)
+}

@@ -62,3 +62,24 @@ var sumNumbers = function(root) {
     dfs(root, '')
     return sum
 }
+
+var sumNumbers = function(root) {
+    let total = 0
+
+    const dfs = (current, path) => {
+        if (current === null) {return null}
+
+        path += current.val
+
+        let left = dfs(current.left, path)
+        let right = dfs(current.right, path)
+
+        if (left === null && right === null) {
+            total += Number(path)
+        }
+        return current.val
+    }
+
+    dfs(root, '')
+    return total
+}

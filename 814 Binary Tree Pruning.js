@@ -62,3 +62,23 @@ var pruneTree = function(root) {
     if (dfs(root) === 0) {return null}
     return root
 };
+
+// 第四次做
+
+var pruneTree = function(root) {
+    const dfs = (current) => {
+        if (current === null) {return null}
+
+        current.left = dfs(current.left)
+        current.right = dfs(current.right)
+
+        if (current.left === null && current.right === null && current.val === 0) {
+            return null
+        } 
+        else {
+            return current
+        }
+    }
+
+    return dfs(root)
+};

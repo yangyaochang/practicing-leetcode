@@ -50,3 +50,21 @@ var removeLeafNodes = function(root, target) {
 
     return remove(root)
 }
+
+// 第四次做
+
+var removeLeafNodes = function(root, target) {
+    const dfs = (current) => {
+        if (current === null) {return null}
+
+        current.left = dfs(current.left)
+        current.right = dfs(current.right)
+
+        if (current.left === null && current.right === null) {
+            return current.val === target ? null : current
+        }
+        return current
+    }
+
+    return dfs(root)
+}

@@ -92,3 +92,25 @@ var binaryTreePaths = function(root) {
     return list
 }
 
+// 第六次做
+
+var binaryTreePaths = function(root) {
+    const list = []
+    
+    const dfs = (current, path) => {
+        if (current === null) {return null}
+
+        if (path === '') {path += current.val}
+        else {path += `->${current.val}`}
+
+        let left = dfs(current.left, path)
+        let right  = dfs(current.right, path)
+
+        if (left === null && right === null) {list.push(path)}
+        return current.val
+    }
+
+    dfs(root, '')
+    return list
+}
+

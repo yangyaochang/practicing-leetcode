@@ -99,3 +99,34 @@ var pathSum = function(root, sum) {
         dfs(current.right, curSum)
     }
 };
+
+// 第四次做，但官方有一個 Prefix Sum 的最佳解法
+
+var pathSum = function(root, sum) {
+    let count = 0
+    
+    const dfs = (current, curSum) => {
+        if (current === null) {return}
+
+        curSum += current.val
+        if (curSum === sum) {count++}
+
+        dfs(current.left, curSum)
+        dfs(current.right, curSum)
+    }
+
+    const queue = []
+    if (root === null) {return 0}
+    queue.push(root)
+
+    while (queue.length > 0) {
+        const current = queue.shift()
+
+        dfs(current, 0)
+
+        if (current.left) {queue.push(current.left)}
+        if (current.right) {queue.push(current.right)}
+    }
+
+    return count
+}

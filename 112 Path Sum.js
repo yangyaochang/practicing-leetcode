@@ -61,3 +61,25 @@ var hasPathSum = function(root, sum) {
     dfs(root, 0)
     return isEqual
 };
+
+// 第四次做
+
+var hasPathSum = function(root, sum) {
+    let hasPath = false
+
+    const dfs = (cur, curSum) => {
+        if (cur === null) {return null}
+
+        let left = dfs(cur.left, curSum + cur.val)
+        let right = dfs(cur.right, curSum + cur.val)
+
+        if (left === null && right === null) {
+            if ((curSum + cur.val) === sum)  {hasPath = true}
+        }
+        return cur
+    }
+
+    if (root === null) {return false}
+    dfs(root, 0)
+    return hasPath
+}

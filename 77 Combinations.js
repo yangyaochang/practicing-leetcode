@@ -102,3 +102,25 @@ var combine = function(n, k) {
     findCombinations([], 1)
     return list
 };
+
+// 第五次做
+
+var combine = function(n, k) {
+    const list = []
+
+    const findCombinations = (path, num, start) => {
+        if (num === k) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = start; i <= n; i++) {
+            path.push(i)
+            findCombinations(path, num + 1, i + 1)
+            path.pop()
+        }
+    }
+
+    findCombinations([], 0, 1)
+    return list
+}

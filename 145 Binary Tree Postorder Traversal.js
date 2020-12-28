@@ -25,3 +25,20 @@ var postorderTraversal = function(root) {
     
     return list.reverse()
 };
+
+// 第二次做
+
+var postorderTraversal = function(root) {
+    const list = []
+
+    const dfs = (current) => {
+        if (current === null) {return}
+
+        dfs(current.left)
+        dfs(current.right)
+        list.push(current.val)
+    }
+
+    dfs(root)
+    return list
+}

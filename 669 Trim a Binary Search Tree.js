@@ -76,3 +76,23 @@ var trimBST = function(root, L, R) {
 
     return trim(root)
 };
+
+// 由底部重構整顆 BST
+// 因為是 BST 所以當 current < L 時，左子樹一定都小於 L，return current.right
+// 因為是 BST 所以當 current > R 時，右子樹一定都大於 R，return current.left
+// 不用再考慮 return 的 current.left 或 current.right 是否在範圍內，因為是 bottom-up 所以已經檢查過
+
+var trimBST = function(root, L, R) {
+    const dfs = (current) => {
+        if(current === null) {return null}
+
+        current.left = dfs(current.left)
+        current.right = dfs(current.right)
+
+        if (L <= current.val && current.val <= R) {return current}
+        else if (current.val < L) {return current.right}
+        else if (current.val > R) {return current.left}
+    }
+
+    return dfs(root)
+}

@@ -53,3 +53,26 @@ const k = 3
 const n = 7
 
 console.log(combinationSum3(k, n))
+
+// 第三次做
+
+var combinationSum3 = function(k, n) {
+    const list = []
+
+    const findCombinatons = (path, curSum, start) => {
+        if (curSum > n || path.length > k) {return}
+        if (curSum === n && path.length === k) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = start; i <= 9; i++) {
+            path.push(i)
+            findCombinatons(path, curSum + i, i + 1)
+            path.pop()
+        }
+    }
+
+    findCombinatons([], 0, 1)
+    return list
+}

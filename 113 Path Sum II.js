@@ -71,3 +71,27 @@ var pathSum = function(root, sum) {
     add([], 0, root)
     return list
 }
+
+// 第三次做
+
+var pathSum = function(root, sum) {
+    const list = []
+
+    const dfs = (current, path, curSum) => {
+        if (current === null) {return null}
+
+        path.push(current.val)
+        curSum += current.val
+        let left  = dfs(current.left, path, curSum)
+        let right = dfs(current.right, path, curSum)
+
+        if (left === null && right === null && curSum === sum) {
+            list.push([...path])
+        }
+        path.pop()
+        return current.val
+    }
+
+    dfs(root, [], 0)
+    return list
+}

@@ -139,3 +139,35 @@ var letterCombinations = function(digits) {
 const digits = '23'
 
 console.log(letterCombinations(digits))
+
+// 第五次做
+
+var letterCombinations = function(digits) {
+    const dict = {
+        2: ['a', 'b', 'c'],
+        3: ['d', 'e', 'f'],
+        4: ['g', 'h', 'i'],
+        5: ['j', 'k', 'l'],
+        6: ['m', 'n', 'o'],
+        7: ['p', 'q', 'r', 's'],
+        8: ['t', 'u', 'v'],
+        9: ['w', 'x', 'y', 'z']
+    }
+
+    const list = []
+
+    const findCombinations = (path, index) => {
+        if (index === digits.length) {
+            list.push(path)
+            return
+        }
+
+        dict[digits[index]].forEach(num => {
+            findCombinations(path + num, index + 1)
+        })
+    }
+
+    if (digits === '') {return list}
+    findCombinations('', 0)
+    return list
+}

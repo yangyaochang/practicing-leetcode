@@ -32,3 +32,30 @@ var subsetsWithDup = function(nums) {
 const nums = [1,2,2]
 
 console.log(subsetsWithDup(nums))
+
+// 第二次做
+
+var subsetsWithDup = function(nums) {
+    const list = []
+    nums.sort((a, b) => a - b)
+
+    const findSubsets = (path, start) => {
+        if (start === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        list.push([...path])
+        
+        for (let i = start; i < nums.length; i++) {
+            if (i > start && nums[i] === nums[i - 1]) {continue}
+
+            path.push(nums[i])
+            findSubsets(path, i + 1)
+            path.pop()
+        }
+    }
+
+    findSubsets([], 0)
+    return list
+}

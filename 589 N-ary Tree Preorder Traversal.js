@@ -38,3 +38,22 @@ var preorder = function(root) {
     dfs(root)
     return list
 }
+
+// 第三次做
+
+var preorder = function(root) {
+    const list = []
+
+    const dfs = (current) => {
+        if (current === null) {return}
+
+        list.push(current.val)
+        current.children.forEach(child => {
+            dfs(child)
+        })
+    }
+
+    if (root === null) {return list}
+    dfs(root)
+    return list
+}

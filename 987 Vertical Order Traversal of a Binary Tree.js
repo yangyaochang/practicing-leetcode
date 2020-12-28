@@ -104,3 +104,53 @@ var verticalTraversal = function(root) {
 
     return list
 }
+
+// 第三次做
+
+var verticalTraversal = function (root) {
+    const cache = {}
+    const list = []
+    let xMin = 0
+    let xMax = 0
+
+    const dfs = (current, x, y) => {
+        if (current === null) { return }
+
+        xMin = Math.min(xMin, x)
+        xMax = Math.max(xMax, x)
+
+        if (x in cache) {
+            if (y in cache[x]) {
+                cache[x][y].push(current.val)
+            } else {
+                cache[x][y] = [current.val]
+            }
+        } else {
+            cache[x] = {}
+            cache[x][y] = [current.val]
+        }
+
+        dfs(current.left, x - 1, y - 1)
+        dfs(current.right, x + 1, y - 1)
+    }
+
+    dfs(root, 0, 0)
+
+    for (let i = xMin; i <= xMax; i++) {
+        if (i in cache) {
+            let column = []
+
+            let y = Object.keys(cache[i]).sort((a, b) => b - a)
+
+            for (let j = 0; j < y.length; j++) {
+                if (cache[i][y[j]].length > 1) {
+                    cache[i][y[j]].sort((a, b) => a - b)
+                }
+                column = column.concat(cache[i][y[j]])
+            }
+            list.push(column)
+        }
+    }
+
+    return list
+}

@@ -56,3 +56,28 @@ var combinationSum2 = function(candidates, target) {
     add([], 0, 0)
     return list
 };
+
+// 第三次做
+
+var combinationSum2 = function(candidates, target) {
+    const list = []
+    candidates.sort((a, b) => a - b)
+
+    const findCombinations = (path, curSum, start) => {
+        if (curSum === target) {
+            list.push([...path])
+            return 
+        }
+        if (curSum > target || start === candidates.length) {return}
+
+        for (let i = start; i < candidates.length; i++) {
+            if (i > start && candidates[i] === candidates[i - 1]) {continue}
+            path.push(candidates[i])
+            findCombinations(path, curSum + candidates[i], i + 1)
+            path.pop()
+        }
+    }
+
+    findCombinations([], 0, 0)
+    return list
+}

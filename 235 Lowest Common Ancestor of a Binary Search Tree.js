@@ -118,3 +118,22 @@ var lowestCommonAncestor = function(root, p, q) {
         if (cur.right) {queue.push(cur.right)}
     }
 };
+
+// 進一步把 BFS 裡的條件合併成只要一個
+
+var lowestCommonAncestor = function(root, p, q) {
+    const queue = []
+    const left = p.val < q.val ? p.val : q.val
+    const right = p.val < q.val ? q.val : p.val
+
+    queue.push(root)
+
+    while (queue.length > 0) {
+        const current = queue.shift()
+
+        if (current.val >= left && current.val <= right) {return current}
+
+        if (current.left) {queue.push(current.left)}
+        if (current.right) {queue.push(current.right)}
+    }
+}

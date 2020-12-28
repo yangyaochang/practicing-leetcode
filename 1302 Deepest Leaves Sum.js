@@ -45,3 +45,29 @@ var deepestLeavesSum = function(root) {
 
     return levelSum[1]
 }
+
+// 第三次做
+
+var deepestLeavesSum = function(root) {
+    const queue = []
+    let currentLevel = 0
+    let currentSum = 0
+
+    queue.push([root, 0])
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (level > currentLevel) {
+            currentSum = current.val
+            currentLevel = level
+        }
+        else {currentSum += current.val}
+        
+
+        if (current.left) {queue.push([current.left, level + 1])}
+        if (current.right) {queue.push([current.right, level + 1])}
+    }   
+
+    return currentSum
+}

@@ -1,5 +1,5 @@
 /*
-Time Complexity: O(n!)
+Time Complexity: 
 Space Complexity: O(n!)
 */
 
@@ -130,6 +130,33 @@ var permute = function(nums) {
             findPermutations(path)
             used[i] = false
             path.pop()
+        }
+    }
+
+    findPermutations([])
+    return list
+}
+
+// 第六次做
+
+var permute = function(nums) {
+    const list = []
+    const used = new Array(nums.length).fill(false)
+
+    const findPermutations = (path) => {
+        if (path.length === nums.length) {
+            list.push([...path])
+            return
+        }
+
+        for (let i = 0; i < nums.length; i++) {
+            if (used[i]) {continue}
+
+            path.push(nums[i])
+            used[i] = true
+            findPermutations(path)
+            path.pop()
+            used[i] = false
         }
     }
 

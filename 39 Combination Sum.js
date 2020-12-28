@@ -171,3 +171,26 @@ var combinationSum = function(candidates, target) {
     add([], 0, 0)
     return list
 }
+
+// 第六次做
+
+var combinationSum = function(candidates, target) {
+    const list = []
+
+    const findCombinations = (path, curSum, start) => {
+        if (curSum === target) {
+            list.push([...path])
+            return
+        }
+        if (curSum > target) {return}
+
+        for (let i = start; i < candidates.length; i++) {
+            path.push(candidates[i])
+            findCombinations(path, curSum + candidates[i], i)
+            path.pop()
+        }
+    }
+
+    findCombinations([], 0, 0)
+    return list
+}

@@ -73,3 +73,28 @@ var generateParenthesis = function(n) {
     generate('', 0, 0)
     return list
 };
+
+// 第四次做
+
+var generateParenthesis = function(n) {
+    const list = []
+
+    const generate = (path, left, right) => {
+        if (left === 0 && right === 0) {
+            list.push(path)
+            return
+        }
+
+        if (left === right) {
+            generate(path + '(', left - 1, right)
+        } else if (left < right) {
+            if (left > 0) {
+                generate(path + '(', left - 1, right)
+            }
+            generate(path + ')', left, right - 1)
+        }
+    }
+
+    generate('', n, n)
+    return list
+}
