@@ -49,7 +49,7 @@ var findPeakElement = function(nums) {
 還是可以根據 Binary Search 的方法來想
 不過要注意若發現 nums[mid] < nums[mid + 1] peak 會在右邊不包含 mid
 若是 nums[mid] > nums[mid + 1] peak 會在左邊可能包含 mid
-考慮 peak 在中間、最左、最右三種情況後，自然會將 while loop 條件改完 left < right 最後返回 left
+考慮 peak 在中間、最左、最右三種情況後，自然會將 while loop 條件改成 left < right 最後返回 left
 */
 
 var findPeakElement = function(nums) {
@@ -65,4 +65,21 @@ var findPeakElement = function(nums) {
     }
 
     return left
+}
+
+var findPeakElement = function(nums) {
+    let left = 0
+    let right = nums.length - 1
+
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2)
+
+        if (nums[mid] < nums[mid + 1]) {
+            left = mid + 1
+        } else if (nums[mid] > nums[mid + 1]) {
+            right = mid
+        }
+    }
+
+    return nums[left]
 }

@@ -40,3 +40,22 @@ var maxPathSum = function(root) {
     dfs(root)
     return maxSum
 };
+
+// 第三次做
+
+var maxPathSum = function(root) {
+    let maxSum = -Infinity
+
+    const dfs = (current) => {
+        if (current === null) {return 0}
+
+        let left = dfs(current.left)
+        let right = dfs(current.right)
+
+        maxSum = Math.max(left + right + current.val, left + current.val, right + current.val, current.val, maxSum)
+        return Math.max(current.val, left + current.val, right + current.val)
+    }
+
+    dfs(root)
+    return maxSum
+};

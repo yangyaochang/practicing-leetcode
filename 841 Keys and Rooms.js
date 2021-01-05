@@ -67,3 +67,20 @@ var canVisitAllRooms = function(rooms) {
 
     return visited.size === rooms.length
 }
+
+var canVisitAllRooms = function(rooms) {
+    const visited = new Set()
+    
+    const dfs = (current) => {
+        if (visited.has(current)) {return}
+
+        visited.add(current)
+
+        rooms[current].forEach(room => {
+            dfs(room)
+        })
+    }
+    
+    dfs(0)
+    return visited.size() === rooms.length
+}

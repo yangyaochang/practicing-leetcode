@@ -24,3 +24,24 @@ var mySqrt = function(x) {
 const x = 8
 
 console.log(mySqrt(x))
+
+// Binary Search 若 target 在搜索的 array 範圍內，但不存在於 array 裡，最後 right 會停在小於 target 的最大值，left 會停在大於 target 的最小值
+
+var mySqrt = function(x) {
+    let left = 0
+    let right = x
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2)
+        const square = Math.pow(mid, 2)
+
+        if (square === x) {return mid}
+        else if (square > x) {
+            right = mid - 1
+        } else if (square < x) {
+            left = mid + 1
+        }
+    }
+
+    return right
+}

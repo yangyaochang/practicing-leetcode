@@ -108,3 +108,28 @@ var findMin = function(nums) {
 
     return nums[left]
 }
+
+// Worst case scenario: 整個 array 都是一樣的值，那麼 while loop 會走完，Time Complexity 為 O(n)
+
+var findMin = function(nums) {
+    let left = 0
+    let right = nums.length - 1
+
+    while (nums[left] >= nums[right]) {
+        while (nums[left] === nums[right]) {
+            if (left === right) {return nums[left]}
+            left++
+        }
+
+        if (nums[right] > nums[left]) {return nums[left]}
+        const mid = Math.floor((left + right) / 2)
+
+        if (nums[left] <= nums[mid]) {
+            left = mid + 1
+        } else if (nums[right] >= nums[mid]) {
+            right = mid
+        }
+    }
+
+    return nums[left]
+}   

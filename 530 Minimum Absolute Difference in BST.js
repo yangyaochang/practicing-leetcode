@@ -66,3 +66,24 @@ var getMinimumDifference = function(root) {
     dfs(root)
     return minDiff
 };
+
+var getMinimumDifference = function(root) {
+    let minDiff = Infinity
+    let preVal = null
+    
+    const dfs = (current) => {
+        if (current === null) {return}
+
+        dfs(current.left)
+        if (preVal === null) {
+            preVal = current.val
+        } else {
+            minDiff = Math.min(minDiff, Math.abs(preVal - current.val))
+            preVal = current.val
+        }
+        dfs(current.right)
+    }
+
+    dfs(root)
+    return minDiff
+}

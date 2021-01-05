@@ -116,3 +116,40 @@ var climbStairs = function(n) {
     }
     return dp_i
 };
+
+// Memoization
+
+var climbStairs = function(n) {
+    const cache = {}
+    
+    const dfs = (stair) => {
+        if (stair in cache) {return cache[stair]}
+        if (stair === 0) {return 1}
+        if (stair < 0) {return 0}
+
+        cache[stair] = dfs(stair - 1) + dfs(stair - 2)
+
+        return cache[stair]
+    }
+
+    return dfs(n)
+}
+
+// Tabulation
+
+var climbStairs = function(n) {
+    let dp_0 = 1
+    let dp_1 = 1
+    let dp_i
+
+    if (n === 0) {return dp_0}
+    if (n === 1) {return dp_1}
+
+    for (let i = 2; i < n + 1; i++) {
+        dp_i = dp_0 + dp_1
+        dp_0 = dp_1
+        dp_1 = dp_i
+    }
+
+    return dp_i
+}

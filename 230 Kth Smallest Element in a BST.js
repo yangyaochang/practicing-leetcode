@@ -62,3 +62,20 @@ var kthSmallest = function(root, k) {
     inorder(root)
     return target
 };
+
+var kthSmallest = function(root, k) {
+    let kth = null
+
+    const dfs = (current) => {
+        if (current === null) {return}
+        if (kth !== null) {return}
+
+        dfs(current.left)
+        k--
+        if (k === 0) {kth = current.val}
+        dfs(current.right)
+    }
+
+    dfs(root)
+    return kth
+}

@@ -51,3 +51,16 @@ const matrix = [[1,   3,  5,  7],
 const target = 3
 
 console.log(searchMatrix(matrix, target))
+
+var searchMatrix = function(matrix, target) {
+    let row = matrix.length - 1
+    let col = 0
+
+    while (row >= 0 && col < matrix[0].length) {
+        if (matrix[row][col] === target) {return true}
+        else if (matrix[row][col] > target) {row--}
+        else if (matrix[row][col] < target) {col++}
+    }
+
+    return false
+}

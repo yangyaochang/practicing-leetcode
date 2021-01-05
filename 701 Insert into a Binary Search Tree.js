@@ -68,3 +68,27 @@ var insertIntoBST = function(root, val) {
         }
     }
 }
+
+var insertIntoBST = function(root, val) {
+    let current = root
+    
+    if (root === null) {return new TreeNode(val)}
+
+    while (current !== null) {
+        if (val > current.val) {
+            if (current.right !== null) {
+                current = current.right
+            } else {
+                current.right = new TreeNode(val)
+                return root
+            }
+        } else if (val < current.val) {
+            if (current.left !== null) {
+                current = current.left
+            } else {
+                current.left = new TreeNode(val)
+                return root
+            }
+        }
+    }
+}

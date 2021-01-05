@@ -54,3 +54,23 @@ var diameterOfBinaryTree = function(root) {
     dfs(root)
     return maxDiameter
 }
+
+// 第四次做
+
+var diameterOfBinaryTree = function(root) {
+    let connectedNodes = 0
+
+    const dfs = (current) => {
+        if (current === null) {return 0}
+
+        let left = dfs(current.left)
+        let right = dfs(current.right)
+
+        connectedNodes = Math.max(left + right + 1, connectedNodes)
+        return Math.max(left + 1, right + 1)
+    }
+    
+    if (root === null) {return 0}
+    dfs(root)
+    return connectedNodes - 1
+}

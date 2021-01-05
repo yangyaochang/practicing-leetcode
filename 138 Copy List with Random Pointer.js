@@ -87,3 +87,24 @@ var copyRandomList = function(head) {
 
     return dfs(head)
 }
+
+// 第五次做
+
+var copyRandomList = function(head) {
+    const cache = new Map()
+
+    const traverse = (current) => {
+        if (current === null) {return null}
+        if (cache.has(current)) {return cache.get(current)}
+
+        const node = new Node(current.val)
+        cache.set(current, node)
+
+        node.next = traverse(current.next)
+        node.random = traverse(current.random)
+
+        return node
+    }
+
+    return traverse(head)
+}

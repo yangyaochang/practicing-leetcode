@@ -73,3 +73,15 @@ var searchBST = function(root, val) {
     }
     return null
 }
+
+var searchBST = function(root, val) {
+    let current = root
+
+    while (current !== null) {
+        if (current.val > val) {current = current.left}
+        else if (current.val < val) {current = current.right}
+        else if (current.val === val) {return current}
+    }
+
+    return null
+}

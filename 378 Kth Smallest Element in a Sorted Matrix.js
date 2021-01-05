@@ -84,3 +84,48 @@ const matrix = [[ 1,  5,  9],
 const k = 8
 
 console.log(kthSmallest(matrix, k))
+
+/*
+下面的做法 private function 判斷的是 matrix 內小於或等於 target 的數字有幾個
+所以當在做 Binary Search 的時候要找的是讓 "小於或等於 target 的數字 = k" 這個條件滿足的最左邊界
+因為坐左邊界會剛好 "是存在於 matrix 裡的數" 且也滿足 "小於或等於 target 的數字 = k"
+大於左邊界但不存在於 matrix 裡的數也可能滿足 "小於或等於 target 的數字 = k"
+*/
+
+var kthSmallest = function(matrix, k) {
+    let left = matrix[0][0]
+    let right = matrix[matrix.length - 1][matrix[0].length - 1]
+
+    while (left <= right) {
+        const target = Math.floor((left + right) / 2)
+        const numOfValues = numOfValuesSmallerOrEqualThanTarget(target)
+
+        if (numOfValues === k) {
+            right = target - 1
+        } else if (numOfValues > k) {
+            right = target - 1
+        } else if (numOfValues < k) {
+            left = target + 1
+        }
+    }
+
+    return left
+
+    function numOfValuesSmallerOrEqualThanTarget(target) {
+        let numInCol = matrix.length
+        let num = 0
+        let row = matrix.length - 1
+        let col = 0
+
+        while (row >= 0 && col < matrix[0].length) {
+            if (target >= matrix[row][col]) {
+                num += numInCol
+                col++
+            } else if (target < matrix[row][col]) {
+                numInCol--
+                row--
+            }
+        }
+        return num
+    }
+}

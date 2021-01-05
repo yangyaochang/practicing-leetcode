@@ -179,3 +179,56 @@ var deserialize = function(data) {
 
     return root
 }
+
+// 第四次做
+
+var serialize = function(root) {
+    const queue = []
+    const list = []
+
+    queue.push(root)
+
+    while (queue.length > 0) {
+        const current = queue.shift()
+
+        if (current !== null) {
+            list.push(current.val)
+
+            queue.push(current.left)
+            queue.push(current.right)
+        } else {
+            list.push(null)
+        }
+    } 
+
+    while (list[list.length - 1] === null) {
+        list.pop()
+    }
+
+    return list
+}
+
+var deserialize = function(data) {
+    if (data.length === 0) {return null}
+
+    const queue = []
+    const root = new TreeNode(data[0])
+
+    queue.push(root)
+
+    for (let i = 1; i < data.length; i+=2) {
+        const current = queue.shift()
+
+        if (data[i] !== null) {
+            current.left = new TreeNode(data[i])
+            queue.push(current.left)
+        }
+
+        if (i + 1 < data.length && data[i + 1] !== null) {
+            current.right = new TreeNode(data[i + 1])
+            queue.push(current.right)
+        }
+    }
+
+    return root
+}

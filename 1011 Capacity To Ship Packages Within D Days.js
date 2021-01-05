@@ -42,3 +42,40 @@ const weights = [1,2,3,1,1]
 const D = 4
 
 console.log(shipWithinDays(weights, D))
+
+var shipWithinDays = function(weights, D) {
+    let left = Math.max(...weights)
+    let right = weights.reduce((acc, cur) => acc + cur)
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2)
+        const days = countDays(mid)
+
+        if (days === D) {right = mid - 1}
+        else if (days > D) {left = mid + 1}
+        else if (days < D) {right = mid - 1}
+    }
+    
+    return left
+    
+    function countDays(capacity) {
+        let days = 0
+        let curWeights = 0
+
+        for (let i = 0; i < weights.length; i++) {
+            curWeights += weights[i]
+
+            if (curWeights === capacity) {
+                days++
+                curWeights = 0
+            } else if (curWeights > capacity) {
+                days++
+                curWeights = weights[i]
+            }
+        }
+
+        if (curWeights !== 0) {days++}
+
+        return days
+    }
+}

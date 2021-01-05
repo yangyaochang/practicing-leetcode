@@ -98,3 +98,34 @@ var findFrequentTreeSum = function(root) {
     }
     return list
 };
+
+// 第三次做
+
+var findFrequentTreeSum = function(root) {
+    const cache = {}
+    let maxFrequency = 1
+    const list = []
+
+    const dfs = (current) => {
+        if (current === null) {return 0}
+
+        let treeSum = dfs(current.left) + dfs(current.right) + current.val
+
+        if (treeSum in cache) {
+            cache[treeSum]++
+            maxFrequency = Math.max(cache[treeSum], maxFrequency)
+        } else {
+            cache[treeSum] = 1
+        }
+
+        return treeSum
+    }
+
+    dfs(root)
+    const keys = Object.keys(cache)
+    keys.forEach(key => {
+        if (cache[key] === maxFrequency) {list.push(key)}
+    })
+
+    return list
+}

@@ -99,3 +99,28 @@ var minEatingSpeed = function(piles, H) {
     }
     return left
 }
+
+/*
+第四次做
+
+計算吃的時間是將一個 array reduce 成一個值，使用 reduce() 讓函數變得更簡潔
+*/
+
+var minEatingSpeed = function(piles, H) {
+
+    const getHours = speed => piles.reduce((hours, pile) => hours + Math.ceil(pile / speed), 0)
+
+    let left = 1
+    let right = Math.max(...piles)
+    
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2)
+        const hours = getHours(mid)
+
+        if (hours === H) {right = mid - 1}
+        else if (hours > H) {left = mid + 1}
+        else if (hours < H) {right = mid - 1}
+    }
+
+    return left
+}

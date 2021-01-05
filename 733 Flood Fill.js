@@ -123,3 +123,25 @@ var floodFill = function(image, sr, sc, newColor) {
     dfs(sr, sc)
     return image
 };
+
+// 第五次做
+
+var floodFill = function(image, sr, sc, newColor) {
+    const origlnal = image[sr][sc]
+    
+    const dfs = (row, col) => {
+        if (row < 0 || row >= image.length || col < 0 || col >= image[0].length) {return}
+        if (image[row][col] !== origlnal) {return}
+        if (image[row][col] === newColor) {return}
+
+        image[row][col] = newColor
+
+        dfs(row + 1, col)
+        dfs(row - 1, col)
+        dfs(row, col + 1)
+        dfs(row, col - 1)
+    }
+
+    dfs(sr, sc)
+    return image
+}

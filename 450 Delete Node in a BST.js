@@ -124,3 +124,47 @@ var deleteNode = function(root, key) {
 
     return dfs(root)
 }
+
+// 用 Iteration 的方式 Time Complexity 為 O(height of the tree)
+
+var deleteNode = function(root, key) {
+    let current = root
+    let parentNode = null
+
+    while (current !== null) {
+        if (key > current.val) {
+            parentNode = current
+            current = current.right
+        } else if (key < current.val) {
+            parentNode = current
+            current = current.left
+        } else if (key === current.val) {
+            let replace = null
+
+            if (current.left === null && current.right === null) {
+                replace = null
+            } else if (current.left === null) {
+                replace = current.right
+            } else if (current.right === null) {
+                replace = current.left
+            } else {
+                replace = current.right
+
+                let smallestInRight = current.right
+                while (smallestInRight.left !== null) {
+                    smallestInRight = smallestInRight.left
+                }
+                smallestInRight.left = current.left
+                current.left = null
+            }
+            
+            if (parentNode === null) {return replace}
+            else {  
+                if (parentNode.left === current) {parentNode.left = replace}
+                else if (parentNode.right === current) {parentNode.right = replace}
+                return root
+            }
+        }
+    }
+    return root
+}

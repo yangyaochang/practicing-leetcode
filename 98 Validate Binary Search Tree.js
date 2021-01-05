@@ -55,3 +55,15 @@ var isValidBST = function(root) {
 
     return validate(root, undefined, undefined)
 }
+
+var isValidBST = function(root) {
+    const dfs = (current, upperLimit, lowerLimit) => {
+        if (current === null) {return true}
+        if (upperLimit !== undefined && current.val >= upperLimit) {return false}
+        if (lowerLimit !== undefined && current.val <= lowerLimit) {return false}
+
+        return dfs(current.left, current.val, lowerLimit) && dfs(current.right, upperLimit, current.val)
+    }
+
+    return dfs(root, undefined, undefined)
+}

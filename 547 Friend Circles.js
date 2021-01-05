@@ -139,3 +139,37 @@ var findCircleNum = function(M) {
         }
     }
 }
+
+var findCircleNum = function(M) {
+    const graph = {}
+    const visited = new Set()
+    let count = 0
+
+    for (let i = 0; i < M.length; i++) {
+        graph[i] = []
+        for (let j = 0; j < M[0].length; j++) {
+            if (M[i][j] === 1 && i !== j) {
+                graph[i].push(j)
+            }
+        }
+    }
+
+    const dfs = (current) => {
+        if (visited.has(current)) {return}
+
+        visited.add(current)
+
+        graph[current].forEach(neighbor => {
+            dfs(neighbor)
+        })
+    }
+
+    for (let i = 0; i < M.length; i++) {
+        if (!visited.has(i)) {
+            count++
+            dfs(i)
+        }
+    }
+
+    return count
+}

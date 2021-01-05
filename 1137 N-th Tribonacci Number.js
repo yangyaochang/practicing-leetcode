@@ -63,3 +63,22 @@ var tribonacci = function(n) {
 
     return dp_i
 }
+
+var tribonacci = function(n) {
+    let dp_0 = 0
+    let dp_1 = 1
+    let dp_2 = 1
+    let dp_i
+
+    if (n === 0) {return 0}
+    if (n < 3) {return 1}
+
+    for (let i = 3; i < n + 1; i++) {
+        dp_i = dp_0 + dp_1 + dp_2
+        dp_0 = dp_1
+        dp_1 = dp_2
+        dp_2 = dp_i
+    }
+
+    return dp_i
+}

@@ -179,3 +179,20 @@ var findMin = function(nums) {
     }
     return nums[left]
 }
+
+var findMin = function(nums) {
+    let left = 0
+    let right = nums.length - 1
+
+    while (nums[left] > nums[right]) {
+        const mid = Math.floor((left + right) / 2)
+
+        if (nums[mid] >= nums[left]) {
+            left = mid + 1
+        } else if (nums[right] > nums[mid]) {
+            right = mid
+        }
+    }
+
+    return nums[left]
+}

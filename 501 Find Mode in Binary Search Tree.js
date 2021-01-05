@@ -111,3 +111,47 @@ var findMode = function(root) {
     }
     return list
 }
+
+/*
+之前使用 object 來記錄 frequency 的方式 Space Complexity 會是 O(n)
+下面利用固定的變數來判斷是否需要 push 到 陣列裡可以壓縮 Space Complexity，因為沒有記錄每一個值出現的次數
+*/
+
+var findMode = function(root) {
+    let modes = []
+    let preVal = null
+    let frequency = 0
+    let maxFrequency = 0
+
+    const dfs = (cur) => {
+        if (cur === null) {return}
+
+        dfs(cur.left)
+        if (preVal === null) {
+            preVal = cur.val
+            frequency++
+            maxFrequency++
+            modes.push(cur.val)
+        } else {
+            if (cur.val === preVal) {
+                frequency++
+                if (frequency > maxFrequency) {
+                    maxFrequency = frequency
+                    modes = [cur.val]
+                } else if (frequency === maxFrequency) {
+                    modes.push(cur.val)
+                }
+            } else {
+                preVal = cur.val
+                frequency = 1
+                if (frequency === maxFrequency) {
+                    modes.push(cur.val)
+                }
+            }
+        }
+        dfs(cur.right)
+    }
+
+    dfs(root)
+    return modes
+}
