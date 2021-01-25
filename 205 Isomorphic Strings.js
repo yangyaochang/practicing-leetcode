@@ -21,3 +21,32 @@ const s = "paper"
 const t = "title"
 
 console.log(isIsomorphic(s, t))
+
+// 第二次做
+
+var isIsomorphic = function(s, t) {
+    let ps = 0
+    let pt = 0
+    const cache = {}
+    const cached = new Set()
+
+    if (s.length !== t.length) {return false}
+
+    while (ps < s.length) {
+        if (s[ps] in cache) {
+            if (cache[s[ps]] === t[pt]) {
+                pt++
+                ps++
+            } else {
+                return false
+            }
+        } else {
+            if (cached.has(t[pt])) {return false}
+            cache[s[ps]] = t[pt]
+            cached.add(t[pt])
+            ps++
+            pt++
+        }
+    }
+    return true
+};

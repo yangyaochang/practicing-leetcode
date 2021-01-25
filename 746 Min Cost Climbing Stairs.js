@@ -79,3 +79,41 @@ var minCostClimbingStairs = function(cost) {
 
     return dp_i
 }
+
+var minCostClimbingStairs = function(cost) {    
+    const climb = (stair) => {
+        if (stair === 1 || stair === 0) {return 0}
+
+        return Math.min(climb(stair - 1) + cost[stair - 1], climb(stair - 2) + cost[stair - 2])
+    }
+
+    return climb(cost.length)
+};
+
+
+var minCostClimbingStairs = function(cost) {
+    const dp = new Array(cost.length + 1)
+
+    dp[0] = 0
+    dp[1] = 0
+
+    for (let i = 2; i < dp.length; i++) {
+        dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])
+    }
+
+    return dp[dp.length - 1]
+}  
+
+var minCostClimbingStairs = function(cost) {
+    let dp_0 = 0
+    let dp_1 = 0
+    let dp_i
+
+    for (let i = 2; i < cost.length + 1; i++) {
+        dp_i = Math.min(dp_1 + cost[i - 1], dp_0 + cost[i - 2])
+        dp_0 = dp_1
+        dp_1 = dp_i
+    }
+
+    return dp_i
+};

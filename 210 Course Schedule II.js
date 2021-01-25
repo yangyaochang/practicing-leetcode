@@ -92,3 +92,44 @@ var findOrder = function(numCourses, prerequisites) {
 
     return (cyclic) ? [] : list.reverse()
 };
+
+// Topological sort 用 postorder 實現，Check cyclic 用 preorder 實現
+
+var findOrder = function(numCourses, prerequisites) {
+    const graph = {}
+    const list = []
+    const visited = new Set()
+    const ancestors = new Set()
+    let isCyclic = false
+
+    for (let i = 0; i < numCourses; i++) {
+        graph[i] = []
+    }
+
+    for (let i = 0; i < prerequisites.length; i++) {
+        graph[prerequisites[i][1]].push(prerequisites[i][0])
+    }
+
+    for (let i = 0; i < numCourses; i++) {
+        topologicalSort(i)
+    }
+
+    return isCyclic ? [] : list.reverse()
+
+    function topologicalSort(current) {
+        if (ancestors.has(current)) {
+            isCyclic = true
+            return
+        }
+        if (visited.has(current)) {return}
+
+        ancestors.add(current)
+
+        for (let i = 0; i < graph[current].length; i++) {
+            topologicalSort(graph[current][i])
+        }
+        visited.add(current)
+        list.push(current)
+        ancestors.delete(current)
+    }
+}

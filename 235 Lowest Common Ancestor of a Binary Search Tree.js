@@ -137,3 +137,18 @@ var lowestCommonAncestor = function(root, p, q) {
         if (current.right) {queue.push(current.right)}
     }
 }
+
+// 我覺得這是最快的做法 Time Complexity: O(logn)
+
+var lowestCommonAncestor = function(root, p, q) {
+    const large = p.val > q.val ? p.val : q.val
+    const small = p.val < q.val ? p.val : q.val
+    let current = root
+
+    while (current !== null) {
+        if (small <= current.val && current.val <= large) {return current}
+
+        if (current.val > large) {current = current.left}
+        else {current = current.right}
+    }
+}

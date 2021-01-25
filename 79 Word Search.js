@@ -99,3 +99,43 @@ var exist = function(board, word) {
     }
     return false
 }
+
+// 第四次做使用一個 scope variable 來儲存結果
+
+var exist = function(board, word) {
+    let found = false
+    const visited = new Set()
+
+    const dfs = (row, col, index) => {
+        const position = `${row}_${col}`
+        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) {return}
+        if (board[row][col] !== word[index]) {return}
+        if (visited.has(position)) {return}
+        if (found) {return}
+        if (index === word.length - 1 && board[row][col] === word[index]) {
+            found = true
+            return
+        }
+
+        visited.add(position)
+
+        dfs(row + 1, col, index + 1)
+        dfs(row - 1, col, index + 1)
+        dfs(row, col + 1, index + 1)
+        dfs(row, col - 1, index + 1)
+
+        visited.delete(position)
+    }
+
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            if (found) {return found}
+            if (board[i][j] === word[0]) {
+                dfs(i, j, 0)
+            }
+        }
+    }
+
+    return found
+}
+

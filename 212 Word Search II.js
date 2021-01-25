@@ -119,3 +119,37 @@ const board = [["a","b"],["a","a"]]
 const words = ["aba","baa","bab","aaab","aaa","aaaa","aaba"]
 
 console.log(findWords(board, words))
+
+// 這一次的做法 Time Complexity 與 Space Complexity 表現最好，之前做法都太複雜了
+
+var findWords = function(board, words) {
+    const visited = new Set()
+    const found = new Set()
+    const list = []
+
+    const find = (r, c, i, w) => {
+        const position = `${r}_${c}`
+        if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) {return false}
+        if (board[r][c] !== w[i]) {return false}
+        if (visited.has(position)) {return false}
+        if (i === w.length - 1 && board[r][c] === w[i]) {return true}
+
+        visited.add(position)
+        const returnVal = find(r + 1, c, i + 1, w) || find(r - 1, c, i + 1, w) || find(r, c + 1, i + 1, w) || find(r, c - 1, i + 1, w)
+        visited.delete(position)
+        return returnVal
+    }
+
+    for (let i = 0; i < words.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            for (let k = 0; k < board[0].length; k++) {
+                if (find(j, k, 0, words[i]) && !found.has(words[i])) {
+                    list.push(words[i])
+                    found.add(words[i])
+                }
+            }
+        }
+    }
+
+    return list
+}

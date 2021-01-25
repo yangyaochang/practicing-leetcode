@@ -106,3 +106,56 @@ var ladderLength = function(beginWord, endWord, wordList) {
         return numOfDiff === 1
     }
 }
+
+// 用 forEach() 處理 neighbors 會超過 Time Complexity 限制
+
+var ladderLength = function(beginWord, endWord, wordList) {
+    wordList.push(beginWord)
+
+    const graph = {}
+
+    for (let i = 0; i < wordList.length; i++) {
+        graph[wordList[i]] = []
+        for (let j = 0; j < wordList.length; j++) {
+            if (i !== j && checkDiff(wordList[i], wordList[j])) {
+                graph[wordList[i]].push(wordList[j])
+            }
+        }
+    } 
+
+    const visited = new Set()
+    const queue = []
+    queue.push([beginWord, 1])
+    visited.add(beginWord)
+
+    while (queue.length > 0) {
+        const [current, level] = queue.shift()
+
+        if (current === endWord) {return level}
+
+        const neighbors = graph[current]
+
+        for (let i = 0; i < neighbors.length; i++) {
+            if (visited.has(neighbors[i]) === false) {
+                queue.push([neighbors[i], level + 1])
+                visited.add(neighbors[i])
+            }
+        }
+    }
+
+    return 0
+    
+    function checkDiff(w1, w2) {
+        let count = 0
+        let i1 = 0
+        let i2 = 0
+
+        while (i1 < w1.length && i2 < w2.length) {
+            if (w1[i1] !== w2[i2]) {count++}
+            i1++
+            i2++
+        } 
+
+        return count === 1
+    }
+}

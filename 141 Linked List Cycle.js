@@ -53,3 +53,21 @@ var hasCycle = function(head) {
     }
     return false
 }
+
+// 第四次做
+
+var hasCycle = function(head) {
+    let fast = head
+    let slow = head
+
+    if (head === null) {return false}
+
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next
+        slow = slow.next
+
+        if (fast === slow) {return true}
+    }
+
+    return false
+};

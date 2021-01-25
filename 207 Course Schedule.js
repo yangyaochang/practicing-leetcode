@@ -138,3 +138,42 @@ var canFinish = function(numCourses, prerequisites) {
     }
     return true
 };
+
+/*
+一開始知道有哪些 key，先放到 graph 裡
+*/
+
+var canFinish = function(numCourses, prerequisites) {
+    const graph = {}
+    const ancestors = new Set()
+    const visited = new Set()
+
+    for (let i = 0; i < numCourses; i++) {
+        graph[i] = []
+    }
+
+    for (let i = 0; i < prerequisites.length; i++) {
+        graph[prerequisites[i][0]].push(prerequisites[i][1])
+    }
+
+    for (let i = 0; i < numCourses; i++) {
+        if(isCyclic(i)) {return false}
+    }
+    
+    return true
+
+    function isCyclic(current) {
+        if (ancestors.has(current)) {return true}
+        if (visited.has(current)) {return false}
+
+        ancestors.add(current)
+        visited.add(current)
+
+        const neighbors = graph[current]
+        for (let i = 0; i < neighbors.length; i++) {
+            if (isCyclic(neighbors[i])) {return true}
+        }
+        ancestors.delete(current)
+        return false
+    }
+}
