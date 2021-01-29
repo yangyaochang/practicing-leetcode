@@ -77,3 +77,23 @@ var uniquePaths = function(m, n) {
 
     return dp[n - 1][m - 1]
 }
+
+// 直接把 2D array 看成一個 dp table
+// 記得狀態在窮舉裡是一個步驟 在 tabulation 裡是一個 subcase
+
+var uniquePaths = function(m, n) {
+    // 表格本身就是一個 dp table
+    const dp = []
+
+    for (let i = 0; i < m; i++) {
+        dp.push(new Array(n).fill(1))
+    }
+
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        }
+    }
+
+    return dp[m - 1][n - 1]
+}

@@ -63,3 +63,20 @@ var lengthOfLIS = function(nums) {
 
     return Math.max(...dp) + 1
 };
+
+// 第四次做
+
+var lengthOfLIS = function(nums) {
+    const dp = new Array(nums.length).fill(0)
+
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[j] < nums[i]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1)
+            }
+        }
+    }
+
+    // 最後自己也要加上去
+    return Math.max(...dp) + 1
+}
