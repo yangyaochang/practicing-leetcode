@@ -37,3 +37,4 @@ var merge = function(intervals) {
         return arr
     }
 };
+

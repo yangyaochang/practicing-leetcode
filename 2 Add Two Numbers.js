@@ -86,3 +86,34 @@ var addTwoNumbers = function(l1, l2) {
     }
     return head
 }
+
+// 用了本來的 Linked List 把 Space Complexity 降成 O(1)
+
+var addTwoNumbers = function(l1, l2) {
+    let c1 = l1
+    let c2 = l2
+    let preC2 = null
+    let temp = 0
+
+    while (c1 !== null || c2 !== null) {
+        let num1 = c1 ? c1.val : 0
+        let num2 = c2 ? c2.val : 0 
+        let sum = num1 + num2 + temp
+        
+        if (c2 === null) {
+            preC2.next = new ListNode(sum % 10)
+            preC2 = preC2.next
+            c1 = c1.next
+        } else {
+            c2.val = sum % 10
+            preC2 = c2
+            c2 = c2.next
+            if (c1) {c1 = c1.next}
+        }
+        temp = Math.floor(sum / 10)
+    }
+
+    if (temp === 0) {return l2}
+    preC2.next = new ListNode(temp)
+    return l2
+};

@@ -46,3 +46,45 @@ var numSquares = function(n) {
 
     return dp[n]
 }
+
+// 第二次做
+
+var numSquares = function(n) {
+    const cache = {}
+    
+    const add = (num) => {
+        if (num === 0) {return 0}
+        if (num in cache) {return cache[num]}
+
+        const returnVal = []
+        // 用 num - i * i >= 0 把會小於 0 的狀況排除
+        for (let i = 1; num - i * i >= 0; i++) {
+            returnVal.push(add(num - i * i))
+        }
+
+        cache[num] = Math.min(...returnVal) + 1
+        return cache[num]
+    }
+
+    return add(n)
+}
+
+var numSquares = function(n) {
+    const dp = new Array(n + 1)
+
+    // 最差狀況都由 1 組成
+    for (let i = 2; i <= n; i++) {
+        dp[i] = i
+    }
+
+    dp[0] = 0
+    dp[1] = 1
+
+    for (let i = 2; i <= n; i++) {
+        for (let j = 1; i - j * j >= 0; j++) {
+            dp[i] = Math.min(dp[i], dp[i - j * j] + 1)
+        }
+    }
+
+    return dp[n]
+}
