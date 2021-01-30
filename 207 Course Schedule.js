@@ -177,3 +177,38 @@ var canFinish = function(numCourses, prerequisites) {
         return false
     }
 }
+
+var canFinish = function(numCourses, prerequisites) {
+    const graph = {}
+
+    for (let i = 0; i < numCourses; i++) {
+        graph[i] = []
+    }
+
+    for (let i = 0; i < prerequisites.length; i++) {
+        graph[prerequisites[i][0]].push(prerequisites[i][1])
+    }
+
+    const visited = new Set()
+    const ancestors = new Set()
+
+    const dfs = (current) => {
+        if (ancestors.has(current)) {return false}
+        if (visited.has(current)) {return true}
+
+        visited.add(current)
+        ancestors.add(current)
+
+        for (let i = 0; i < graph[current].length; i++) {
+            if (dfs(graph[current][i]) === false) {return false}
+        }
+
+        ancestors.delete(current)
+        return true
+    }
+
+    for (let i = 0; i < numCourses; i++) {
+        if (dfs(i) === false) {return false}
+    }
+    return true
+}
