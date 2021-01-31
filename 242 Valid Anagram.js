@@ -21,3 +21,14 @@ var isAnagram = function(s, t) {
 
     return true
 }
+
+// 另外一種做法 如果是 anagram 排序後會長一模一樣 但是排序費時
+
+var isAnagram = function(s, t) {
+    if (s.length !== t.length) {return false}
+    
+    s = s.split('').sort((a, b) => a.localeCompare(b)).join('')
+    t = t.split('').sort((a, b) => a.localeCompare(b)).join('')
+    
+    return s === t
+}
